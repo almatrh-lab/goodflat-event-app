@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GOODFLAT-KOREA- イベント準備アプリ v5α</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.47.0/iconfont/tabler-icons.min.css">
+<style>
+:root{--blue:#004AAD;--blue-dk:#003A87;--blue-soft:#E7EFFA;--blue-ink:#003A87;--ink:#1A1F2B;--sub:#8A909C;--line:rgba(0,0,0,0.09);--bg:#F4F6FA;--danger:#C8455C;--danger-ink:#B23A4E;--danger-soft:#FBEAEE;--ok:#1F7A4D;--ok-soft:#E6F4EC;--amber:#C8870F;--amber-soft:#FBF1DF;--purple-soft:#EFE7F7;--purple-ink:#6B3FA0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Segoe UI",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.wrap{max-width:480px;margin:0 auto;padding:12px 14px 40px;min-height:100vh}
+.hero{background:var(--blue);border-radius:18px;padding:22px;margin-bottom:16px;color:#fff;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:"Times New Roman",serif;font-size:23px;font-weight:700;line-height:0.96;letter-spacing:0.04em}
+.logo .kr{display:block;font-size:11px;letter-spacing:0.4em;margin-top:7px;font-family:-apple-system,sans-serif;font-weight:400}
+.hero .tag{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;opacity:0.85;text-align:right;line-height:1.7}
+.nav{display:flex;background:#fff;border:0.5px solid var(--line);border-radius:14px;padding:4px;margin-bottom:18px;overflow-x:auto}
+.nav button{flex:1;font-size:11px;padding:10px 2px;border-radius:11px;border:none;background:transparent;color:var(--sub);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all .15s;font-family:inherit;white-space:nowrap;min-width:60px}
+.nav button i{font-size:18px}
+.nav button.on{background:var(--blue);color:#fff}
+.card{background:#fff;border:0.5px solid var(--line);border-radius:16px;padding:18px;margin-bottom:12px}
+.muted{color:var(--sub)}
+.tiny{font-size:12px}
+.mini{font-size:10px;letter-spacing:0.16em;color:var(--sub)}
+.row{display:flex;align-items:center;gap:10px}
+.between{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pill{font-size:10px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pill-a{background:var(--blue-soft);color:var(--blue-ink)}
+.pill-b{background:var(--purple-soft);color:var(--purple-ink)}
+.pill-ok{background:var(--ok-soft);color:var(--ok)}
+.pill-ng{background:var(--danger-soft);color:var(--danger-ink)}
+.pill-team-A{background:#004AAD;color:#fff}
+.pill-team-B{background:#6B3FA0;color:#fff}
+.pill-team-C{background:#C8870F;color:#fff}
+.pill-must{background:var(--blue-soft);color:var(--blue-ink)}
+.pill-may{background:#F2EFE6;color:#8A7B45}
+.pill-venue{background:#EAEFF6;color:#3F5C82}
+.pill-cons{background:var(--ok-soft);color:var(--ok)}
+.btn{font-size:13px;padding:13px 16px;border-radius:12px;border:0.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;font-family:inherit;transition:all .12s}
+.btn:active{transform:scale(0.985)}
+.btn-blue{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn-ok{background:var(--ok);color:#fff;border-color:var(--ok)}
+.btn-danger{background:var(--danger);color:#fff;border-color:var(--danger)}
+.btn-ghost-danger{color:var(--danger-ink);border-color:transparent;background:transparent}
+.btn-block{width:100%;text-align:center;display:flex;align-items:center;justify-content:center;gap:7px}
+input,select,textarea{font-family:inherit}
+.field{width:100%;font-size:16px;padding:11px 12px;border-radius:11px;border:0.5px solid var(--line);background:#fff;color:var(--ink);margin-top:5px}
+.field:focus{outline:none;border-color:var(--blue)}
+textarea.field{min-height:64px;resize:vertical}
+input[type="date"].field{-webkit-appearance:none;appearance:none;min-width:0;max-width:100%;text-align:left}
+input[type="date"]::-webkit-date-and-time-value{text-align:left;margin:0}
+.label{font-size:11px;letter-spacing:0.04em;color:var(--sub);margin-top:12px;display:block;font-weight:600}
+.seg{display:flex;gap:6px;margin-top:6px}
+.seg button{flex:1;font-size:13px;padding:11px 4px;border-radius:10px;border:0.5px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;font-family:inherit}
+.seg button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.cat-h{font-size:10px;font-weight:600;letter-spacing:0.16em;color:var(--sub);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+.cat-h::after{content:'';flex:1;height:0.5px;background:var(--line)}
+.det{font-size:12px;color:var(--sub);margin-top:5px;line-height:1.55}
+.empty{text-align:center;color:var(--sub);padding:44px 16px;font-size:13px;line-height:1.7}
+.empty i{font-size:30px;display:block;margin-bottom:10px;color:rgba(0,74,173,0.2)}
+.modal-bg{position:fixed;inset:0;background:rgba(0,30,70,0.5);display:flex;align-items:flex-start;justify-content:center;padding:24px 14px;z-index:50;overflow:auto}
+.modal{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:380px;margin:auto}
+.link{background:none;border:none;color:var(--blue);font-size:13px;cursor:pointer;padding:0;font-family:inherit;display:inline-flex;align-items:center;gap:5px}
+.stat{display:flex;align-items:baseline;gap:5px}
+.stat b{font-size:22px;font-weight:700;color:var(--blue)}
+.notice{font-size:11px;color:var(--sub);background:#fff;border:0.5px solid var(--line);padding:11px 14px;border-radius:12px;margin-bottom:14px;line-height:1.6;display:flex;gap:8px;align-items:flex-start}
+.notice i{font-size:15px;color:var(--blue);flex:0 0 auto;margin-top:1px}
+.ico-btn{width:32px;height:32px;border-radius:9px;border:none;background:transparent;color:var(--sub);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center}
+.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(26,31,43,0.95);color:#fff;padding:16px 24px;border-radius:14px;font-size:15px;font-weight:600;z-index:99;max-width:80%;text-align:center;line-height:1.5;box-shadow:0 8px 30px rgba(0,0,0,0.25)}
+.bar{height:6px;border-radius:999px;background:#E3E7EF;overflow:hidden;margin-top:8px}
+.bar>div{height:100%;background:var(--blue);border-radius:999px;transition:width .25s}
+.bar.ok>div{background:var(--ok)}
+.li{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:0.5px solid var(--line)}
+.li:last-child{border-bottom:none}
+.li .nm{flex:1;min-width:0;font-size:14px;font-weight:600;line-height:1.4}
+.qtybox{display:flex;align-items:center;gap:6px}
+.qtybtn{width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:#fff;color:var(--blue);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.qtyval{width:48px;text-align:center;font-size:16px;font-weight:700;border:1px solid var(--line);border-radius:9px;padding:7px 2px}
+.unit{font-size:11px;color:var(--sub);width:24px}
+.chk{display:flex;align-items:flex-start;gap:11px;padding:13px 0;border-bottom:0.5px solid var(--line)}
+.chk:last-child{border-bottom:none}
+.box{width:28px;height:28px;flex:0 0 28px;border-radius:9px;border:1.5px solid rgba(0,0,0,0.18);display:flex;align-items:center;justify-content:center;cursor:pointer;margin-top:1px;position:relative}
+.box.done{background:var(--blue);border-color:var(--blue)}
+.box.done::after{content:'';position:absolute;width:7px;height:13px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.cbody{flex:1;min-width:0}
+.nm2{font-size:14px;font-weight:600;line-height:1.45}
+.nm2.struck{color:var(--sub)}
+.reqbig{font-size:15px;font-weight:700;color:var(--blue)}
+.reqng{font-size:14px;font-weight:700;color:var(--danger-ink)}
+.evcard{background:#fff;border:0.5px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:10px;cursor:pointer}
+.evtitle{font-weight:700;font-size:16px;line-height:1.35}
+.evdate{font-size:12px;color:var(--sub);margin-top:3px}
+table{width:100%;border-collapse:collapse}
+.infotbl td{font-size:13px;padding:7px 0;vertical-align:top;border-bottom:0.5px solid var(--line)}
+.infotbl tr:last-child td{border-bottom:none}
+.infotbl td.k{color:var(--sub);width:36%;font-size:12px}
+.flag{flex:0 0 auto;border-radius:9px;border:1px solid var(--line);background:#fff;color:var(--sub);display:flex;align-items:center;gap:4px;cursor:pointer;font-size:11px;font-weight:600;padding:7px 9px;white-space:nowrap;align-self:flex-start}
+.flag i{font-size:14px}
+.flag.on{background:var(--danger-soft);border-color:var(--danger);color:var(--danger)}
+.reqcard{border-left:3px solid var(--danger)}
+.reqcard.kekkin{border-left-color:var(--amber)}
+.dnd-item.dragging{opacity:0.4}
+.dnd-item.drag-over{border-top:2px solid var(--blue)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="logo">GOOD<br>FLAT<span class="kr">KOREA</span></div>
+    <div class="tag">イベント<br>準備アプリ<br>Event App</div>
+  </div>
+  <div class="nav">
+    <button id="t-events" class="on" onclick="go('events')"><i class="ti ti-calendar-event"></i>イベント</button>
+    <button id="t-load" onclick="go('load')"><i class="ti ti-truck-loading"></i>積み込み</button>
+    <button id="t-master" onclick="go('master')"><i class="ti ti-box"></i>備品マスタ</button>
+    <button id="t-order" onclick="go('order')"><i class="ti ti-shopping-cart"></i>消耗品発注</button>
+  </div>
+  <div id="screen"></div>
+</div>
+<div id="modal-root"></div>
+
+<script>
+const BIHIN = [{"no":1,"cat":"レジ周辺備品","name":"レジスター","use":"会計処理・日次精算","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"台","place":"本社/各チーム備品箱","pri":"高","venue":"モールは指定レジ・CAT端末の有無確認","damage":"電源・印字・ドロアー開閉・鍵の有無","report":"破損・不具合は責任者へ写真共有し、代替レジ/手書き運用を判断","consumable":false,"warehouse":true,"total":2,"order":0},{"no":2,"cat":"レジ周辺備品","name":"カード決済端末","use":"クレジット決済","jisha":"必須","mall":"会場確認","honsha":"必要時","a":1,"b":1,"unit":"台","place":"本社/各チーム備品箱","pri":"高","venue":"カード端末持込可否、回線、売上入力方法","damage":"起動・充電・通信・ロール紙・決済テスト","report":"決済不可の場合は現金/QR対応へ切替可否を報告","consumable":false,"warehouse":true,"total":2,"order":1},{"no":3,"cat":"レジ周辺備品","name":"PayPay QRコード","use":"QR決済導線","jisha":"必須","mall":"会場確認","honsha":"必要時","a":1,"b":1,"unit":"枚","place":"レジ備品ファイル","pri":"高","venue":"モール決済ルール確認","damage":"QR汚れ・折れ・読み取り可否","report":"読み取り不可は再印刷または端末決済へ切替","consumable":false,"warehouse":false,"total":2,"order":2},{"no":4,"cat":"レジ周辺備品","name":"決済用タブレット","use":"決済アプリ・在庫確認","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"台","place":"本社/各チーム備品箱","pri":"高","venue":"Wi-Fi/テザリング利用可否","damage":"充電・画面割れ・アプリ起動・ログイン","report":"不具合は写真/症状/日時を報告し代替端末を手配","consumable":false,"warehouse":true,"total":2,"order":3},{"no":5,"cat":"レジ周辺備品","name":"テザリング用携帯","use":"通信確保","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"台","place":"本社/各チーム備品箱","pri":"高","venue":"会場電波状況確認","damage":"充電・SIM通信・テザリング可否","report":"通信不可は会場Wi-Fi/別回線へ切替","consumable":false,"warehouse":true,"total":2,"order":4},{"no":6,"cat":"レジ周辺備品","name":"各種充電器","use":"端末・スピーカー等充電","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"式","place":"充電器ケース","pri":"高","venue":"電源位置確認","damage":"断線・発熱・差込不良","report":"破損品は使用停止し写真報告","consumable":false,"warehouse":false,"total":2,"order":5},{"no":7,"cat":"レジ周辺備品","name":"電源タップ","use":"レジ周辺の電源確保","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"本","place":"配線ケース","pri":"高","venue":"電源口数・使用制限確認","damage":"差込口・コード被膜・通電","report":"破損は火災リスクがあるため即使用停止","consumable":false,"warehouse":false,"total":2,"order":6},{"no":8,"cat":"レジ周辺備品","name":"延長コード2m","use":"電源距離の調整","jisha":"必須","mall":"必須","honsha":"必要時","a":2,"b":2,"unit":"本","place":"配線ケース","pri":"高","venue":"通路横断時の養生可否","damage":"断線・被膜・通電","report":"破損は即使用停止し代替を手配","consumable":false,"warehouse":false,"total":4,"order":7},{"no":9,"cat":"レジ周辺備品","name":"現金支払い用受け皿","use":"現金受渡し","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"個","place":"レジ備品箱","pri":"中","venue":"会場レジ備品の貸出有無","damage":"割れ・汚れ","report":"割れは使用停止・交換","consumable":false,"warehouse":false,"total":2,"order":8},{"no":10,"cat":"レジ周辺備品","name":"釣り銭","use":"現金決済対応","jisha":"必須","mall":"必須","honsha":"不要","a":0,"b":0,"unit":"円","place":"金庫/本社管理","pri":"高","venue":"モールの釣銭ルール確認","damage":"金額・金種・封印状態","report":"不足/差異は即責任者へ報告","consumable":false,"note":"金額管理は別シートまたは金庫台帳で管理。目安15万円","warehouse":true,"total":0,"order":9},{"no":11,"cat":"レジ周辺備品","name":"支払い決済リスト","use":"日次精算・決済確認","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"枚","place":"レジ備品ファイル","pri":"高","venue":"モール提出様式確認","damage":"記入欄・最新版か","report":"不足時は印刷依頼","consumable":true,"minA":1,"minB":1,"orderUnit":"必要数印刷","orderBase":"最新版を各チーム1部以上保管","warehouse":false,"orderManage":false,"total":2,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":10},{"no":12,"cat":"レジ周辺備品","name":"電卓","use":"手計算・精算確認","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"個","place":"レジ備品箱","pri":"中","venue":"不要","damage":"電池・表示","report":"故障は交換","consumable":false,"warehouse":false,"total":2,"order":11},{"no":13,"cat":"レジ周辺備品","name":"STAFF証","use":"スタッフ識別","jisha":"必須","mall":"必須","honsha":"必要時","a":4,"b":4,"unit":"枚","place":"スタッフ備品ケース","pri":"中","venue":"モール入館証ルール確認","damage":"ストラップ・印字・破れ","report":"不足は事前印刷/再作成","consumable":false,"warehouse":false,"total":8,"order":12},{"no":14,"cat":"作業用備品","name":"テープカッター","use":"設営・梱包・POP貼付","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"個","place":"作業備品箱","pri":"中","venue":"テープ使用ルール確認","damage":"刃・本体割れ","report":"刃欠けは使用停止","consumable":true,"minA":1,"minB":1,"orderUnit":"必要数","orderBase":"残量が各チーム1単位以下で補充を検討","warehouse":false,"orderManage":false,"total":2,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":0},{"no":15,"cat":"作業用備品","name":"テープカッター用テープ","use":"設営・梱包","jisha":"必須","mall":"必須","honsha":"必要時","a":3,"b":3,"unit":"個","place":"作業備品箱","pri":"中","venue":"壁面貼付可否確認","damage":"残量・粘着","report":"不足は消耗品発注","consumable":true,"minA":1,"minB":1,"orderUnit":"10個単位","orderBase":"各チーム残り1個以下で発注。イベント連続時は残り2個で補充","warehouse":false,"orderManage":false,"total":6,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":1},{"no":16,"cat":"作業用備品","name":"セロハンテープ","use":"軽作業・POP補修","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"個","place":"作業備品箱","pri":"低","venue":"壁面貼付可否確認","damage":"残量","report":"不足は補充","consumable":true,"minA":1,"minB":1,"orderUnit":"10個単位","orderBase":"各チーム残り1個以下で発注","warehouse":false,"orderManage":false,"total":2,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":2},{"no":17,"cat":"作業用備品","name":"透明テープ大","use":"梱包・固定","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"個","place":"作業備品箱","pri":"中","venue":"床/壁への直貼り可否","damage":"残量・粘着","report":"不足は補充","consumable":true,"minA":1,"minB":1,"orderUnit":"10個単位","orderBase":"各チーム残り1個以下で発注","warehouse":false,"orderManage":false,"total":2,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":3},{"no":18,"cat":"作業用備品","name":"ホチキス","use":"書類・POP留め","jisha":"必要時","mall":"必要時","honsha":"必要時","a":1,"b":1,"unit":"個","place":"作業備品箱","pri":"低","venue":"不要","damage":"針詰まり・残量","report":"故障は交換","consumable":false,"warehouse":false,"total":2,"order":4},{"no":19,"cat":"作業用備品","name":"ボールペン","use":"記入作業","jisha":"必須","mall":"必須","honsha":"必要時","a":3,"b":3,"unit":"本","place":"作業備品箱","pri":"低","venue":"不要","damage":"インク切れ","report":"不足は補充","consumable":true,"minA":2,"minB":2,"orderUnit":"10本単位","orderBase":"各チーム2本以下で補充","warehouse":false,"orderManage":false,"total":6,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":5},{"no":20,"cat":"作業用備品","name":"はさみ","use":"タグ・紐・梱包のカット","jisha":"必須","mall":"必須","honsha":"必要時","a":2,"b":2,"unit":"本","place":"作業備品箱","pri":"中","venue":"刃物管理ルール確認","damage":"刃こぼれ・開閉","report":"破損は使用停止","consumable":false,"warehouse":false,"total":4,"order":6},{"no":21,"cat":"作業用備品","name":"カッター","use":"段ボール開梱","jisha":"必須","mall":"必須","honsha":"必要時","a":2,"b":2,"unit":"本","place":"作業備品箱","pri":"中","venue":"刃物管理ルール確認","damage":"刃・ロック","report":"破損は使用停止。替刃管理も確認","consumable":false,"warehouse":false,"total":4,"order":7},{"no":22,"cat":"作業用備品","name":"ゴミ袋","use":"ごみ回収・撤収","jisha":"必須","mall":"必須","honsha":"必須","a":5,"b":5,"unit":"枚","place":"作業備品箱","pri":"中","venue":"会場ごみ処理ルール確認","damage":"破れ・残量","report":"不足は補充","consumable":true,"minA":5,"minB":5,"orderUnit":"1袋単位","orderBase":"各チーム5枚以下で補充","warehouse":false,"orderManage":false,"total":10,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":8},{"no":24,"cat":"作業用備品","name":"クイックルワイパーセット","use":"床清掃","jisha":"必須","mall":"会場確認","honsha":"必須","a":1,"b":1,"unit":"式","place":"清掃備品箱","pri":"中","venue":"モール清掃範囲・貸出確認","damage":"柄の破損・シート残量","report":"破損は写真共有、清掃不可なら会場へ相談","consumable":true,"minA":1,"minB":1,"orderUnit":"1式","orderBase":"替えシート残量も確認。残り1式以下で補充","warehouse":false,"orderManage":false,"total":2,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":9},{"no":25,"cat":"作業用備品","name":"スチームアイロン","use":"商品シワ取り","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"台","place":"作業備品箱","pri":"中","venue":"電源使用可否確認","damage":"水漏れ・通電・蒸気・コード","report":"水漏れ/異常発熱は使用停止","consumable":false,"warehouse":false,"total":2,"order":10},{"no":27,"cat":"作業用備品","name":"裁縫セット","use":"簡易補修","jisha":"必要時","mall":"必要時","honsha":"必要時","a":1,"b":1,"unit":"式","place":"作業備品箱","pri":"低","venue":"不要","damage":"針・糸・はさみ有無","report":"不足は補充","consumable":false,"warehouse":false,"total":2,"order":11},{"no":28,"cat":"作業用備品","name":"コロコロ（粘着テープ）","use":"衣類・什器のほこり取り","jisha":"必須","mall":"必須","honsha":"必須","a":1,"b":1,"unit":"個","place":"清掃備品箱","pri":"中","venue":"不要","damage":"粘着残量・柄の破損","report":"不足は補充","consumable":true,"minA":1,"minB":1,"orderUnit":"3本単位","orderBase":"本体ではなく替えテープ残量を確認","warehouse":false,"orderManage":false,"total":2,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":12},{"no":29,"cat":"作業用備品","name":"毛玉取り","use":"商品メンテナンス","jisha":"必要時","mall":"必要時","honsha":"必要時","a":1,"b":1,"unit":"台","place":"作業備品箱","pri":"低","venue":"電池/充電確認","damage":"刃・通電","report":"故障は使用停止","consumable":false,"warehouse":false,"total":2,"order":13},{"no":30,"cat":"作業用備品","name":"姿見清掃用タオル","use":"鏡清掃","jisha":"必須","mall":"必須","honsha":"必須","a":2,"b":2,"unit":"枚","place":"清掃備品箱","pri":"低","venue":"不要","damage":"汚れ・不足","report":"洗濯/交換","consumable":true,"minA":1,"minB":1,"orderUnit":"5枚単位","orderBase":"汚れ・紛失が出たら補充","warehouse":false,"orderManage":false,"total":4,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":14},{"no":31,"cat":"店頭備品","name":"ブランド札","use":"ブランド別売場表示","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"式","place":"POP/札ケース","pri":"高","venue":"モール掲示ルール確認","damage":"汚れ・折れ・不足","report":"不足は印刷/ラミネート対応","consumable":false,"warehouse":false,"total":2,"order":0},{"no":33,"cat":"店頭備品","name":"店頭用ミラー","use":"各チーム5枚あり","jisha":"必須","mall":"会場確認","honsha":"必須","a":2,"b":2,"unit":"台","place":"大型備品置場","pri":"高","venue":"モール貸出有無・設置場所確認","damage":"鏡割れ・脚部・転倒防止","report":"割れは危険のため即撤去・写真報告","consumable":false,"warehouse":true,"total":4,"order":1},{"no":34,"cat":"店頭備品","name":"フィッティングルームセット","use":"本体・カバー・S字フック・椅子・ベルト・ミラー・天井カバー（各チーム4セット）","jisha":"必須","mall":"会場確認","honsha":"必要時","a":1,"b":1,"unit":"台","place":"大型備品置場","pri":"高","venue":"試着室貸出・設置可否確認","damage":"フレーム・カーテン・固定部","report":"破損は使用停止し代替/簡易試着導線を判断","consumable":false,"warehouse":true,"total":2,"order":2},{"no":39,"cat":"店頭備品","name":"A1グリップ式スタンド","use":"入口・大型POP掲示","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"台","place":"POP/大型備品置場","pri":"中","venue":"通路設置・転倒防止ルール確認","damage":"脚部・固定ネジ","report":"破損は使用停止、転倒リスクを報告","consumable":false,"warehouse":true,"total":2,"order":3},{"no":40,"cat":"店頭備品","name":"音楽用スピーカー","use":"店内BGM・イベント演出","jisha":"必須","mall":"会場確認","honsha":"必要時","a":1,"b":1,"unit":"台","place":"音響備品ケース","pri":"中","venue":"音量規制・館内放送の妨げ確認","damage":"充電・音出し・Bluetooth","report":"音出し不可は予備/無音運用判断","consumable":false,"warehouse":false,"total":2,"order":4},{"no":41,"cat":"店頭備品","name":"スピーカー充電器","use":"スピーカー充電","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"本","place":"音響備品ケース","pri":"中","venue":"電源位置確認","damage":"断線・充電可否","report":"破損は交換","consumable":false,"warehouse":false,"total":2,"order":5},{"no":45,"cat":"店頭備品","name":"ブランドポップ","use":"価格・ルール案内","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"式","place":"POP/札ケース","pri":"高","venue":"掲示ルール確認","damage":"内容・汚れ・破損","report":"誤表記は即使用停止・差替","consumable":true,"minA":1,"minB":1,"orderUnit":"必要数印刷","orderBase":"内容変更・破損時に再印刷","warehouse":false,"orderManage":false,"total":2,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":6},{"no":46,"cat":"店頭備品","name":"ブランドポップクリップ","use":"POP固定","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"式","place":"POP/札ケース","pri":"中","venue":"什器固定可否確認","damage":"割れ・バネ","report":"破損は交換","consumable":true,"minA":3,"minB":3,"orderUnit":"10個単位","orderBase":"各チーム3個以下で補充","warehouse":false,"orderManage":false,"total":2,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":7},{"no":48,"cat":"搬入搬出備品","name":"台車","use":"商品・什器運搬","jisha":"必須","mall":"会場確認","honsha":"必須","a":1,"b":1,"unit":"台","place":"大型備品置場","pri":"高","venue":"貸出台車2〜3台の有無確認","damage":"車輪・持ち手・ブレーキ","report":"破損は使用停止、搬入導線へ影響報告","consumable":false,"warehouse":true,"total":2,"order":0},{"no":49,"cat":"搬入搬出備品","name":"レジテーブル","use":"高さだし6個含","jisha":"必須","mall":"会場確認","honsha":"必須","a":1,"b":1,"unit":"台","place":"大型備品置場","pri":"中","venue":"貸出有無・サイズ確認","damage":"脚・天板・ぐらつき","report":"破損は使用停止/会場へ報告","consumable":false,"note":"会場規模により2〜3台目安","warehouse":true,"total":2,"order":1},{"no":53,"cat":"消耗品","name":"ショッパー小（160枚入）","use":"購入商品包装・ブランド体験","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"unit":"箱","place":"消耗品ストック","pri":"高","venue":"有料/無料配布ルール確認","damage":"残量・破れ・印刷ズレ","report":"不足は発注。1688等の単価更新が必要","consumable":true,"minA":100,"minB":100,"orderUnit":"1箱(160枚)単位で発注","orderBase":"残り3箱以下で発注","note":"蓝色透明 50×40 参考","warehouse":true,"orderManage":true,"stock":6,"orderPoint":3,"total":0,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":0},{"no":54,"cat":"消耗品","name":"ショッパー大（80枚入）","use":"購入商品包装・ブランド体験","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"unit":"箱","place":"消耗品ストック","pri":"高","venue":"有料/無料配布ルール確認","damage":"残量・破れ・印刷ズレ","report":"不足は発注。1688等の単価更新が必要","consumable":true,"minA":100,"minB":100,"orderUnit":"1箱(80枚)単位で発注","orderBase":"残り1箱以下で発注","note":"蓝色透明 55×45 参考","warehouse":true,"orderManage":true,"stock":2,"orderPoint":1,"total":0,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":1},{"no":55,"cat":"消耗品","name":"値札セット","use":"値札付け・価格修正","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"式","place":"値札備品箱","pri":"高","venue":"価格表示ルール確認","damage":"残量・印字・サイズ","report":"不足は補充/印刷","consumable":true,"minA":1,"minB":1,"orderUnit":"1式","orderBase":"各チーム1式未満で補充。値札用ガン・エノキとセット確認","warehouse":true,"orderManage":false,"total":2,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":2},{"no":56,"cat":"消耗品","name":"値札用エノキ","use":"値札取付","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"unit":"本","place":"値札備品箱","pri":"高","venue":"不要","damage":"残量・劣化","report":"不足は発注","consumable":true,"minA":100,"minB":100,"orderUnit":"1,000本単位","orderBase":"各チーム100本以下で発注","note":"商品量に応じて適量","warehouse":true,"orderManage":false,"total":0,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":3},{"no":57,"cat":"消耗品","name":"値札用ガン","use":"値札取付","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"個","place":"値札備品箱","pri":"高","venue":"不要","damage":"針詰まり・動作・針の残量","report":"故障時は予備へ切替","consumable":true,"minA":1,"minB":1,"orderUnit":"必要数","orderBase":"残量が各チーム1単位以下で補充を検討","warehouse":true,"orderManage":false,"total":2,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":4},{"no":58,"cat":"消耗品","name":"青ボックス背表紙","use":"ストック管理・箱管理","jisha":"必須","mall":"必須","honsha":"必要時","a":1,"b":1,"unit":"式","place":"帳票/ラベル箱","pri":"中","venue":"不要","damage":"印字・貼付状態","report":"不足は印刷","consumable":true,"minA":1,"minB":1,"orderUnit":"必要数印刷","orderBase":"残り1式以下、または新箱追加時に印刷","warehouse":true,"orderManage":false,"total":2,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":5},{"no":61,"cat":"販促備品","name":"ガチャガチャ本体","use":"販促イベント・集客施策","jisha":"必要時","mall":"会場確認","honsha":"必要時","a":0,"b":0,"unit":"台","place":"販促備品/大型備品置場","pri":"中","venue":"設置可否・景品ルール・通路幅確認","damage":"本体割れ・鍵・詰まり・コイン動作","report":"破損は使用停止、代替施策へ切替","consumable":false,"note":"実施イベントのみ","warehouse":true,"total":0,"order":0},{"no":62,"cat":"消耗品","name":"養生テープ","use":"搬入搬出時の養生","jisha":"必要時","mall":"必須","honsha":"必要時","a":0,"b":0,"unit":"個","place":"消耗品ストック","pri":"中","venue":"","damage":"","report":"","consumable":true,"warehouse":false,"orderManage":true,"minA":3,"minB":3,"stock":8,"orderPoint":3,"orderUnit":"1個ずつ","orderBase":"残り3個以下で発注","total":0,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":6},{"no":63,"cat":"消耗品","name":"OPPテープ","use":"梱包用","jisha":"必要時","mall":"必須","honsha":"必要時","a":0,"b":0,"unit":"個","place":"消耗品ストック","pri":"中","venue":"","damage":"","report":"","consumable":true,"warehouse":false,"orderManage":true,"minA":3,"minB":3,"stock":6,"orderPoint":3,"orderUnit":"1個ずつ","orderBase":"残り3個以下で発注","total":0,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":7},{"no":64,"cat":"消耗品","name":"ショッパー中（80枚入）","use":"Mサイズ商品用ショッパー","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"unit":"箱","place":"消耗品ストック","pri":"中","venue":"","damage":"","report":"","consumable":true,"warehouse":false,"orderManage":true,"minA":2,"minB":2,"stock":3,"orderPoint":2,"orderUnit":"1箱(80枚)単位で発注","orderBase":"残り2箱以下で発注","total":0,"janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":"","order":8},{"no":65,"cat":"搬入搬出備品","name":"1500ラック","use":"商品陳列","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"本","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":2},{"no":66,"cat":"搬入搬出備品","name":"1200ラック","use":"商品陳列","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"本","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":3},{"no":67,"cat":"搬入搬出備品","name":"1500ハイラック","use":"商品陳列","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"本","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":4},{"no":68,"cat":"搬入搬出備品","name":"1200ハイラック","use":"商品陳列","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"本","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":5},{"no":69,"cat":"搬入搬出備品","name":"キャップラック","use":"商品陳列","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"本","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":6},{"no":71,"cat":"消耗品","name":"レジロール","use":"","jisha":"必要時","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"個","place":"","pri":"中","venue":"","damage":"","report":"","consumable":true,"warehouse":false,"orderManage":false,"order":9,"stock":0,"orderPoint":0,"orderUnit":"","orderBase":"","janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":""},{"no":72,"cat":"消耗品","name":"写真機用ロール","use":"","jisha":"必要時","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"個","place":"","pri":"中","venue":"","damage":"","report":"","consumable":true,"warehouse":false,"orderManage":false,"order":10,"stock":0,"orderPoint":0,"orderUnit":"","orderBase":"","janCode":"","size":"","color":"","lotSize":"","lotPrice":"","supplier":""},{"no":73,"cat":"店頭備品","name":"店内用ショッピングバッグ","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"個","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":8},{"no":74,"cat":"店頭備品","name":"ショッピングバッグスタンド","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"台","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":9},{"no":75,"cat":"店頭備品","name":"A4POPスタンド（シルバー）","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"個","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":10},{"no":76,"cat":"店頭備品","name":"A4POPスタンド（ブルー）","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"個","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":11},{"no":77,"cat":"店頭備品","name":"A型スタンド","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"個","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":12},{"no":78,"cat":"店頭備品","name":"ベルトパーテーション","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"本","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":13},{"no":79,"cat":"店頭備品","name":"ブルーテーブル","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"台","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":14},{"no":80,"cat":"店頭備品","name":"クリアテーブル","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"台","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":15},{"no":81,"cat":"搬入搬出備品","name":"ブルーコンテナBOX（大）","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"個","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":7},{"no":82,"cat":"搬入搬出備品","name":"ブルーコンテナBOX（中）","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"個","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":8},{"no":83,"cat":"搬入搬出備品","name":"ブルーコンテナBOX（小）","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"個","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":9},{"no":84,"cat":"店頭備品","name":"ブルーの椅子（クリア）","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"脚","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":16},{"no":85,"cat":"店頭備品","name":"ブルーの椅子（布）","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"脚","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":17},{"no":86,"cat":"販促備品","name":"ガチャガチャ小","use":"本体・カプセル・鍵・コイン・カプセル入","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"台","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":1},{"no":87,"cat":"販促備品","name":"ガチャガチャ大","use":"本体・カプセル・鍵・コイン・カプセル入","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"台","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":2},{"no":88,"cat":"販促備品","name":"販促物","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"式","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":3},{"no":89,"cat":"販促備品","name":"レシート写真機セット","use":"写真機・コルクボード・テーブル","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"セット","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":4},{"no":90,"cat":"店頭備品","name":"GOODFLAT LEDプレート（イエロー）","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"枚","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":18},{"no":91,"cat":"店頭備品","name":"GOODFLAT LEDプレート（ブルー）","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"枚","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":19},{"no":92,"cat":"店頭備品","name":"GOODFLATカーペット","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"枚","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":20},{"no":93,"cat":"店頭備品","name":"ディフューザー","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"個","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":21},{"no":94,"cat":"店頭備品","name":"ベアブリック2台","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"個","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":22},{"no":95,"cat":"作業用備品","name":"トランシーバー","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"台","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":15},{"no":96,"cat":"店頭備品","name":"ブラウン管テレビ","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"台","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":23},{"no":97,"cat":"店頭備品","name":"カーブミラー","use":"","jisha":"必須","mall":"必須","honsha":"必要時","a":0,"b":0,"total":0,"unit":"台","place":"","pri":"中","venue":"","damage":"","report":"","consumable":false,"warehouse":false,"orderManage":false,"order":24}];
+const LOAD_ITEMS = [{"no":1,"cat":"ラック類","name":"1500ラック","unit":"本"},{"no":2,"cat":"ラック類","name":"1200ラック","unit":"本"},{"no":3,"cat":"ラック類","name":"1500ハイラック","unit":"本"},{"no":4,"cat":"ラック類","name":"1200ハイラック","unit":"本"},{"no":5,"cat":"ラック類","name":"キャップラック","unit":"本"},{"no":6,"cat":"ラック類","name":"バッグスタンド","unit":"本"},{"no":7,"cat":"ラック類","name":"ショッピングバッグスタンド","unit":"本"},{"no":8,"cat":"試着・ミラー","name":"店頭ミラー","unit":"枚"},{"no":9,"cat":"試着・ミラー","name":"FRセット（本体・カバー・天井布・ミラー・マット・イス・S字フック・ベルト・フェイスカバー）","unit":"セット"},{"no":10,"cat":"試着・ミラー","name":"カーブミラー（ポール・ミラー）","unit":"台"},{"no":11,"cat":"ショッパー・バッグ","name":"ショッパー小（160枚/箱）","unit":"箱"},{"no":12,"cat":"ショッパー・バッグ","name":"ショッパー中（80枚/箱）","unit":"箱"},{"no":13,"cat":"ショッパー・バッグ","name":"ショッパー大（80枚/箱）","unit":"箱"},{"no":14,"cat":"ショッパー・バッグ","name":"ショッパー大（バラ）","unit":"枚"},{"no":15,"cat":"ショッパー・バッグ","name":"店内用ショッピングバッグ","unit":"式"},{"no":16,"cat":"レジ・会計","name":"レジテーブル（高さだし含む）","unit":"台"},{"no":17,"cat":"レジ・会計","name":"クリアテーブル","unit":"台"},{"no":18,"cat":"レジ・会計","name":"ブルーテーブル","unit":"台"},{"no":19,"cat":"レジ・会計","name":"レジロール","unit":"個"},{"no":20,"cat":"レジ・会計","name":"写真機用ロール","unit":"個"},{"no":21,"cat":"レジ・会計","name":"タグボックス（タグガン2個・予備針）","unit":"式"},{"no":22,"cat":"レジ・会計","name":"備品ボックス","unit":"個"},{"no":23,"cat":"POP・看板","name":"ブランドポップ","unit":"式"},{"no":24,"cat":"POP・看板","name":"ブランドクリップ","unit":"式"},{"no":25,"cat":"POP・看板","name":"A4POPスタンド（シルバー）","unit":"本"},{"no":26,"cat":"POP・看板","name":"A4POPスタンド（青）","unit":"本"},{"no":27,"cat":"POP・看板","name":"A1グリップ式スタンド看板","unit":"台"},{"no":28,"cat":"POP・看板","name":"A型スタンド","unit":"台"},{"no":29,"cat":"POP・看板","name":"GOODFLAT LEDプレート","unit":"枚"},{"no":30,"cat":"テープ・消耗","name":"養生テープ","unit":"個"},{"no":31,"cat":"テープ・消耗","name":"OPPテープ","unit":"個"},{"no":32,"cat":"演出・販促","name":"GOODFLATカーペット","unit":"枚"},{"no":33,"cat":"演出・販促","name":"ディフューザー","unit":"個"},{"no":34,"cat":"演出・販促","name":"ベアブリック","unit":"個"},{"no":35,"cat":"演出・販促","name":"ブラウン管TV","unit":"台"},{"no":36,"cat":"演出・販促","name":"レシート写真機セット（写真機・コルクボード・テーブル）","unit":"セット"},{"no":37,"cat":"演出・販促","name":"ガチャガチャ（本体・カプセル・コイン・鍵）","unit":"台"},{"no":38,"cat":"演出・販促","name":"ガチャガチャ大本体","unit":"台"},{"no":39,"cat":"演出・販促","name":"ベルトパーテーション","unit":"本"},{"no":40,"cat":"演出・販促","name":"販促物（キーボード全量）","unit":"式"},{"no":41,"cat":"演出・販促","name":"ブルーのイス（布・クリア）","unit":"脚"},{"no":42,"cat":"コンテナ・運搬","name":"ブルーコンテナ大","unit":"個"},{"no":43,"cat":"コンテナ・運搬","name":"ブルーコンテナ中","unit":"個"},{"no":44,"cat":"コンテナ・運搬","name":"台車","unit":"台"},{"no":45,"cat":"コンテナ・運搬","name":"台車（取手無し）","unit":"台"},{"no":46,"cat":"コンテナ・運搬","name":"トランシーバー（本体・イヤフォン）","unit":"セット"}];
+const TEMPLATES = [{"id":"tpl_shizuoka","name":"浜松市野（静岡）例","venue":"イオンモール浜松市野","qty":{"1":33,"2":12,"3":11,"4":1,"5":1,"8":4,"11":4,"12":1,"14":20,"22":1,"21":1,"23":1,"24":1,"30":2,"31":3,"16":1,"19":2,"25":2,"26":1,"27":1,"28":1,"15":1,"7":2,"17":1,"42":4,"43":4,"6":20,"9":4,"44":2,"29":1}},{"id":"tpl_osaka","name":"OSAKA SPACE（大阪）例","venue":"OSAKA SPACE","qty":{"1":16,"2":7,"3":0,"4":1,"5":1,"8":2,"11":6,"12":2,"14":50,"22":1,"21":1,"23":1,"24":1,"30":2,"31":3,"16":1,"19":3,"20":2,"25":2,"26":2,"27":1,"28":1,"15":1,"7":2,"39":4,"32":1,"33":1,"34":2,"18":1,"17":1,"42":4,"43":4,"9":4,"35":1,"36":1,"29":1,"37":1,"45":2,"40":1,"38":1,"6":15,"41":1,"10":1,"46":4}}];
+const LOAD_TO_MASTER = {"11":{"masterNo":53,"ratio":1},"12":{"masterNo":64,"ratio":1},"13":{"masterNo":54,"ratio":1},"30":{"masterNo":62,"ratio":1},"31":{"masterNo":63,"ratio":1}};
+const BCATS=['レジ周辺備品','作業用備品','店頭備品','搬入搬出備品','消耗品','販促備品'];
+const LCATS=['ラック類','試着・ミラー','ショッパー・バッグ','レジ・会計','POP・看板','テープ・消耗','演出・販促','コンテナ・運搬'];
+const REQUESTERS=['小林 優美R','柏村 美智留','齋藤 修平','鈴木 慎一朗','常盤 琴音','佐藤 望由','時庭 優'];
+const LOADERS=['小林 優美R','柏村 美智留','齋藤 修平','鈴木 慎一朗','常盤 琴音','佐藤 望由','時庭 優','宇見 千尋','佐藤 美桜'];
+const TEAMS=['A','B','C'];
+const LS={get(k){try{return localStorage.getItem('gfe5a_'+k);}catch(e){return null;}},set(k,v){try{localStorage.setItem('gfe5a_'+k,v);}catch(e){}}};
+
+let DB={master:null,litems:null,events:[],reqs:[],cfg:{gasUrl:''}};
+let view='events', curEvent=null, curReq=null, modal=null, masterFilter='all', selMode=false, selIds={};
+function master(){ return DB.master||BIHIN; }
+function litems(){ return DB.litems||LOAD_ITEMS; }
+function findEvent(id){ return DB.events.find(e=>e.id===id); }
+function findReqByEvent(eventId){ return DB.reqs.find(r=>r.eventId===eventId); }
+
+function load(){
+  let m=LS.get('master'); if(m) try{DB.master=JSON.parse(m);}catch(e){}
+  let li=LS.get('litems'); if(li) try{DB.litems=JSON.parse(li);}catch(e){}
+  let ev=LS.get('events'); if(ev) try{DB.events=JSON.parse(ev);}catch(e){}
+  let r=LS.get('reqs'); if(r) try{DB.reqs=JSON.parse(r);}catch(e){}
+  let c=LS.get('cfg'); if(c) try{DB.cfg=Object.assign({gasUrl:''},JSON.parse(c));}catch(e){}
+  render();
+  // 起動時に自動でGASから取得
+  if(DB.cfg.gasUrl) syncFromGas();
+  // オンライン/オフライン状態の監視
+  window.addEventListener('online', function(){ syncStatus='online'; render(); });
+  window.addEventListener('offline', function(){ syncStatus='offline'; render(); });
+}
+// 同期バーのHTML
+function syncBarHTML(){
+  const online = navigator.onLine;
+  const stateColor = online?'var(--ok)':'var(--danger-ink)';
+  const stateIcon = online?'ti-cloud-check':'ti-cloud-x';
+  const stateText = online?(syncing?'同期中…':'オンライン'):'オフライン';
+  const lastText = lastSyncAt?'最終同期 '+lastSyncAt:'未同期';
+  return '<div class="card" style="padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:8px">'
+    +'<div style="display:flex;align-items:center;gap:8px;font-size:12px"><i class="ti '+stateIcon+'" style="color:'+stateColor+';font-size:16px"></i><span style="color:'+stateColor+';font-weight:600">'+stateText+'</span><span class="muted">・ '+lastText+'</span></div>'
+    +'<button class="btn" style="padding:6px 12px;font-size:12px" onclick="syncFromGas()"'+(online&&!syncing?'':' disabled')+'><i class="ti ti-refresh"></i> 同期</button>'
+    +'</div>';
+}
+
+// 同期状態
+let syncStatus = navigator.onLine ? 'online' : 'offline';
+let syncing = false;
+let lastSyncAt = '';
+
+// GASから読み込み（イベント・依頼・品目）
+function syncFromGas(silent){
+  if(!DB.cfg.gasUrl){ if(!silent) toast('スプレッド連携設定が未設定です'); return; }
+  if(!navigator.onLine){ syncStatus='offline'; if(!silent) toast('オフラインです'); render(); return; }
+  if(syncing) return;
+  syncing=true; if(!silent) toast('同期中…');
+  fetch(DB.cfg.gasUrl,{method:'GET',redirect:'follow'})
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      if(!data||data.ok!==true){ throw new Error(data&&data.error||'同期エラー'); }
+      // イベント取り込み
+      const serverEvents = data.events||[];
+      // ローカルにあって計算済みのフィールド（calSynced等）は保持
+      const eventMap = {};
+      DB.events.forEach(e=>{ eventMap[e.id]=e; });
+      DB.events = serverEvents.map(se=>{
+        const local = eventMap[se.id];
+        return Object.assign({calSynced:true}, local||{}, se);
+      });
+      saveEvents();
+      // 依頼取り込み
+      const serverReqs = data.reqs||[];
+      const items = data.items||[];
+      const reqMap = {};
+      DB.reqs.forEach(r=>{ reqMap[r.id]=r; });
+      DB.reqs = serverReqs.map(sr=>{
+        const local = reqMap[sr.id] || {qty:{},actual:{},equipQty:{},equipActual:{},locked:false};
+        // 品目を qty/actual と equipQty/equipActual に展開
+        const myItems = items.filter(it=>it.reqId===sr.id);
+        const qty={}, actual={}, equipQty={}, equipActual={};
+        myItems.forEach(it=>{
+          if(it.kind==='equip'){
+            equipQty[it.no]=it.request;
+            if(it.actual!=null) equipActual[it.no]=it.actual;
+          } else {
+            qty[it.no]=it.request;
+            if(it.actual!=null) actual[it.no]=it.actual;
+          }
+        });
+        // lockedはローカルから引き継ぐ（送信済みなら確定）
+        const locked = local.locked || sr.done || (Object.keys(actual).length>0) || (Object.keys(equipActual).length>0);
+        return Object.assign({}, local, sr, {qty:qty,actual:actual,equipQty:equipQty,equipActual:equipActual,locked:locked});
+      });
+      saveReqs();
+      syncing=false;
+      lastSyncAt = new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
+      syncStatus='online';
+      render();
+      if(!silent) toast('同期しました（'+serverEvents.length+'件のイベント）');
+    })
+    .catch(function(err){
+      syncing=false;
+      if(!silent) toast('同期に失敗しました');
+      console.error('sync error',err);
+    });
+}
+
+// 依頼をGASに保存
+function saveReqToGas(r){
+  if(!DB.cfg.gasUrl) return;
+  if(!navigator.onLine){ syncStatus='offline'; return; }
+  // 品目を平坦化
+  const items=[];
+  Object.keys(r.qty||{}).forEach(no=>{ const q=Number(r.qty[no])||0; if(q<=0) return;
+    const li=litems().find(x=>x.no===Number(no));
+    items.push({kind:(li&&li.cat==='custom')?'custom':'load',no:Number(no),name:li?li.name:'',unit:li?li.unit:'',request:q,actual:(r.actual||{})[no]==null?'':r.actual[no]});
+  });
+  Object.keys(r.equipQty||{}).forEach(no=>{ const q=Number(r.equipQty[no])||0; if(q<=0) return;
+    const mi=master().find(x=>x.no===Number(no));
+    items.push({kind:'equip',no:Number(no),name:mi?mi.name:'',unit:mi?mi.unit:'',request:q,actual:(r.equipActual||{})[no]==null?'':r.equipActual[no]});
+  });
+  const payload={action:'req_save',req:{id:r.id,eventId:r.eventId,requester:r.requester||'',checker:r.checker||'',due:r.due||'',workdate:r.workdate||'',done:!!r.done,doneAt:r.doneAt||'',sent:!!r.sent,sentAt:r.sentAt||''},items:items};
+  fetch(DB.cfg.gasUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
+}
+// 依頼をGASから削除
+function deleteReqFromGas(reqId){
+  if(!DB.cfg.gasUrl) return;
+  if(!navigator.onLine) return;
+  fetch(DB.cfg.gasUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'req_delete',reqId:reqId})}).catch(function(){});
+}
+function saveMaster(){ LS.set('master',JSON.stringify(master())); }
+function saveLitems(){ LS.set('litems',JSON.stringify(litems())); }
+function saveEvents(){ LS.set('events',JSON.stringify(DB.events)); }
+function saveReqs(){ LS.set('reqs',JSON.stringify(DB.reqs)); if(curReq) saveReqToGas(curReq); }
+function saveCfg(){ LS.set('cfg',JSON.stringify(DB.cfg)); }
+function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function go(v){ view=v; curEvent=null; curReq=null; selMode=false; selIds={}; render(); if(DB.cfg.gasUrl&&(v==='events'||v==='load')) syncFromGas(true); }
+
+function render(){
+  const s=document.getElementById('screen');
+  ['events','load','master','order'].forEach(v=>{const b=document.getElementById('t-'+v); if(b) b.classList.toggle('on',v===view);});
+  if(view==='events') s.innerHTML=curEvent?eventDetailHTML():eventListHTML();
+  else if(view==='load') s.innerHTML=curReq?reqDetailHTML():reqListHTML();
+  else if(view==='master') s.innerHTML=masterHTML();
+  else if(view==='order') s.innerHTML=orderHTML();
+  renderModal();
+}
+
+/* ===== 名簿セレクト ===== */
+function personSelect(selId,otherId,names,current){
+  const inList=current&&names.indexOf(current)>=0;
+  const isOther=current&&!inList;
+  let opts='<option value="">選択してください</option>';
+  names.forEach(n=>{ opts+='<option value="'+esc(n)+'"'+(current===n?' selected':'')+'>'+esc(n)+'</option>'; });
+  opts+='<option value="__other__"'+(isOther?' selected':'')+'>その他（手入力）</option>';
+  let h='<select class="field" id="'+selId+'" onchange="(function(v){document.getElementById(\''+otherId+'\').style.display=(v===\'__other__\')?\'block\':\'none\';})(this.value)">'+opts+'</select>';
+  h+='<input class="field" id="'+otherId+'" placeholder="名前を入力" value="'+(isOther?esc(current):'')+'" style="display:'+(isOther?'block':'none')+'">';
+  return h;
+}
+function readPerson(selId,otherId){ const sel=document.getElementById(selId).value; if(sel==='__other__') return (document.getElementById(otherId).value||'').trim(); return sel; }
+
+/* ===== イベント一覧 ===== */
+function eventListHTML(){
+  let h='<div class="notice"><i class="ti ti-info-circle"></i> まずイベントを登録すると、開催日の14日前〜前日が「準備期間」としてGoogleカレンダーに自動で入ります。積み込み依頼はイベントから紐づけて作ります。</div>';
+  h+=syncBarHTML();
+  h+='<div class="between" style="margin-bottom:12px"><span class="mini">イベント</span><button class="link" onclick="openGasSetup()"><i class="ti ti-settings" style="vertical-align:-2px"></i> スプレッド連携設定'+(DB.cfg.gasUrl?'（設定済み）':'')+'</button></div>';
+  h+='<button class="btn btn-blue btn-block" onclick="newEvent()" style="margin-bottom:18px"><i class="ti ti-plus"></i> 新しいイベントを登録</button>';
+  if(!DB.events.length){ h+='<div class="empty"><i class="ti ti-calendar-plus"></i>まだイベントがありません。<br>上のボタンから登録しましょう。</div>'; return h; }
+  // 開催日の昇順
+  const sorted=DB.events.slice().sort((a,b)=>(a.openday||'').localeCompare(b.openday||''));
+  sorted.forEach(ev=>{
+    const req=findReqByEvent(ev.id);
+    let status='準備中', sCls='background:#EEF0F3;color:#5B6473';
+    if(req){ if(req.done) { status='完了'; sCls='background:var(--ok-soft);color:var(--ok)'; }
+      else if(req.locked) { status='積み込み中'; sCls='background:var(--purple-soft);color:var(--purple-ink)'; }
+      else { status='依頼作成中'; sCls='background:var(--blue-soft);color:var(--blue-ink)'; } }
+    h+='<div class="evcard" onclick="openEvent(\''+ev.id+'\')">'
+      +'<div class="between"><div style="min-width:0">'
+      +'<div class="mini" style="margin-bottom:5px"><span class="pill pill-team-'+(ev.team||'A')+'">'+(ev.team||'A')+'チーム</span> <span class="pill" style="'+sCls+'">'+status+'</span></div>'
+      +'<div class="evtitle">'+esc(ev.name)+'</div>'
+      +'<div class="evdate">開催：'+esc(ev.openday||'未設定')+(ev.closeday?' 〜 '+esc(ev.closeday):'')+(ev.dest?' ・ '+esc(ev.dest):'')+'</div>'
+      +'</div><i class="ti ti-chevron-right muted" style="font-size:18px"></i></div>'
+      +'</div>';
+  });
+  return h;
+}
+function newEvent(){ if(!DB.cfg.gasUrl){ toast('先に「スプレッド連携設定」でURLを保存してください'); return; } modal={type:'newEvent',team:'A'}; renderModal(); }
+function openEvent(id){ curEvent=findEvent(id); render(); }
+
+/* ===== イベント詳細 ===== */
+function eventDetailHTML(){
+  const ev=curEvent;
+  const req=findReqByEvent(ev.id);
+  let h='<button class="link" onclick="go(\'events\')" style="margin-bottom:14px"><i class="ti ti-arrow-left"></i> イベント一覧へ戻る</button>';
+  h+='<div class="card"><div class="between"><div style="min-width:0">'
+    +'<div class="mini" style="margin-bottom:5px"><span class="pill pill-team-'+(ev.team||'A')+'">'+(ev.team||'A')+'チーム</span></div>'
+    +'<div style="font-weight:700;font-size:18px;line-height:1.3">'+esc(ev.name)+'</div>'
+    +'<div class="tiny muted" style="margin-top:3px">開催：'+esc(ev.openday||'未設定')+(ev.closeday?' 〜 '+esc(ev.closeday):'')+'</div></div>'
+    +'<div class="row" style="gap:4px"><button class="ico-btn" onclick="editEvent(\''+ev.id+'\')" aria-label="編集"><i class="ti ti-edit"></i></button>'
+    +'<button class="ico-btn" onclick="delEvent(\''+ev.id+'\')" aria-label="削除"><i class="ti ti-trash"></i></button></div></div>'
+    +'<table class="infotbl" style="margin-top:10px">'
+    +'<tr><td class="k">配送先住所</td><td>'+(esc(ev.dest)||'—')+'</td></tr>'
+    +'<tr><td class="k">日程メモ</td><td>'+(esc(ev.date)||'—')+'</td></tr>'
+    +'<tr><td class="k">運送業者</td><td>'+(esc(ev.carrier)||'—')+'</td></tr>'
+    +'<tr><td class="k">準備期間</td><td>'+(ev.openday?prepRangeLabel(ev.openday):'—')+'</td></tr>'
+    +'</table>';
+  if(ev.calSynced) h+='<div class="tiny" style="margin-top:10px;color:var(--ok)"><i class="ti ti-cloud-check" style="vertical-align:-2px"></i> カレンダーに登録済み</div>';
+  h+='</div>';
+  // 積み込み依頼の表示
+  if(req){
+    let badge='', label='';
+    if(req.done){ badge='pill-ok'; label='積み込み完了'; }
+    else if(req.locked){ badge='pill-b'; label='積み込み中'; }
+    else { badge='pill-a'; label='依頼作成中'; }
+    h+='<div class="card" onclick="openReq(\''+req.id+'\')" style="cursor:pointer"><div class="between"><div><div class="mini" style="margin-bottom:5px"><span class="pill '+badge+'">'+label+'</span></div><div style="font-weight:700;font-size:15px">積み込み依頼</div><div class="tiny muted" style="margin-top:3px">'+(req.requester?'依頼：'+esc(req.requester):'依頼者未設定')+'</div></div><i class="ti ti-chevron-right muted"></i></div></div>';
+  } else {
+    h+='<button class="btn btn-blue btn-block" style="margin-top:10px" onclick="newReqForEvent(\''+ev.id+'\')"><i class="ti ti-plus"></i> このイベントの積み込み依頼を作成</button>';
+  }
+  return h;
+}
+function prepRangeLabel(openday){
+  try{ const d=new Date(openday+'T00:00:00'); const s=new Date(d.getTime()-14*86400000); const e=new Date(d.getTime()-86400000);
+    return (s.getMonth()+1)+'/'+s.getDate()+' 〜 '+(e.getMonth()+1)+'/'+e.getDate(); } catch(e){ return ''; }
+}
+function editEvent(id){ const ev=findEvent(id); modal={type:'editEvent',ev:JSON.parse(JSON.stringify(ev))}; renderModal(); }
+function delEvent(id){
+  const req=findReqByEvent(id);
+  const msg=req?'このイベントを削除すると、紐づく積み込み依頼も削除されます。カレンダーの予定も削除されます。管理者パスワードを入力してください。':'このイベントを削除します。カレンダーの予定も削除されます。管理者パスワードを入力してください。';
+  modal={type:'confirm',needPass:true,msg:msg,ok:function(){
+    const ev=findEvent(id);
+    // カレンダー予定を削除リクエスト
+    if(ev.calSynced) sendGas({action:'event_delete',eventId:id});
+    // データ削除
+    DB.reqs=DB.reqs.filter(r=>r.eventId!==id);
+    DB.events=DB.events.filter(e=>e.id!==id);
+    saveReqs(); saveEvents(); curEvent=null; modal=null; render(); toast('削除しました');
+  }};
+  renderModal();
+}
+
+/* ===== 積み込み依頼 ===== */
+function newReqForEvent(eventId){ const ev=findEvent(eventId); modal={type:'newReq',eventId:eventId,ev:ev}; renderModal(); }
+function reqListHTML(){
+  let h='<div class="notice"><i class="ti ti-info-circle"></i> 積み込み依頼の一覧です。新規作成は「イベント」タブから対象イベントを選んで行います。スタッフ全員で共有されます。</div>';
+  h+=syncBarHTML();
+  if(!DB.reqs.length){ h+='<div class="empty"><i class="ti ti-clipboard-list"></i>まだ依頼がありません。<br>イベントタブから登録してください。</div>'; return h; }
+  DB.reqs.slice().reverse().forEach(r=>{
+    const ev=findEvent(r.eventId);
+    const st=reqStats(r);
+    let badge='', label='';
+    if(r.done){ badge='pill-ok'; label='完了'; }
+    else if(r.locked){ badge='pill-b'; label='確認中'; }
+    else { badge='pill-a'; label='作成中'; }
+    h+='<div class="card" onclick="openReq(\''+r.id+'\')" style="cursor:pointer">'
+      +'<div class="between"><div style="min-width:0">'
+      +'<div class="mini" style="margin-bottom:5px"><span class="pill pill-team-'+((ev&&ev.team)||r.team||'A')+'">'+((ev&&ev.team)||r.team||'A')+'チーム</span> <span class="pill '+badge+'">'+label+'</span></div>'
+      +'<div style="font-weight:700;font-size:16px;line-height:1.35">'+esc(ev?ev.name:r.name||'(イベント削除済み)')+'</div>'
+      +'<div class="tiny muted" style="margin-top:3px">'+(r.requester?'依頼：'+esc(r.requester):'')+(r.due?' ・ 期限'+esc(r.due):'')+'</div>'
+      +'</div><i class="ti ti-chevron-right muted" style="font-size:18px"></i></div>';
+    if(r.done) h+='<div class="tiny" style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><span style="color:var(--ok);font-weight:600"><i class="ti ti-circle-check-filled" style="vertical-align:-2px"></i> 完了'+(r.doneAt?'（'+esc(r.doneAt)+'）':'')+'</span>'+(r.sent?'<span style="color:var(--ok);font-weight:600"><i class="ti ti-cloud-check" style="vertical-align:-2px"></i> 送信済</span>':'<span style="color:var(--danger-ink);font-weight:700"><i class="ti ti-cloud-x" style="vertical-align:-2px"></i> 送信未</span>')+'</div>';
+    else if(r.locked){ const pct=st.kinds?Math.round(st.checked/st.kinds*100):0;
+      h+='<div style="margin-top:12px"><div class="between tiny"><span class="muted">確認の進捗</span><span style="font-weight:600">'+st.checked+'/'+st.kinds+'</span></div><div class="bar '+(st.ng===0&&st.checked===st.kinds&&st.kinds>0?'ok':'')+'"><div style="width:'+pct+'%"></div></div>'+(st.ng>0?'<div class="tiny" style="margin-top:8px;color:var(--danger-ink)"><i class="ti ti-alert-triangle" style="vertical-align:-2px"></i> 数量不一致 '+st.ng+'件</div>':'')+'</div>'; }
+    h+='</div>';
+  });
+  return h;
+}
+function reqStats(r){
+  const qty=r.qty||{}, actual=r.actual||{};
+  const equipQty=r.equipQty||{}, equipActual=r.equipActual||{};
+  const kinds=Object.keys(qty).filter(no=>qty[no]>0).length + Object.keys(equipQty).filter(no=>equipQty[no]>0).length;
+  let checked=0, ng=0;
+  Object.keys(qty).forEach(no=>{ if(qty[no]<=0) return; if(actual[no]!=null){ checked++; if(Number(actual[no])!==Number(qty[no])) ng++; } });
+  Object.keys(equipQty).forEach(no=>{ if(equipQty[no]<=0) return; if(equipActual[no]!=null){ checked++; if(Number(equipActual[no])!==Number(equipQty[no])) ng++; } });
+  return {kinds:kinds,checked:checked,ng:ng};
+}
+function openReq(id){ curReq=DB.reqs.find(r=>r.id===id); view='load'; render(); }
+function reqDetailHTML(){
+  const r=curReq;
+  const ev=findEvent(r.eventId);
+  let h='<button class="link" onclick="backFromReq()" style="margin-bottom:14px"><i class="ti ti-arrow-left"></i> 戻る</button>';
+  h+='<div class="card"><div class="between"><div style="min-width:0">'
+    +'<div class="mini" style="margin-bottom:5px"><span class="pill pill-team-'+((ev&&ev.team)||r.team||'A')+'">'+((ev&&ev.team)||r.team||'A')+'チーム</span></div>'
+    +'<div style="font-weight:700;font-size:18px;line-height:1.3">'+esc(ev?ev.name:r.name||'')+'</div>'
+    +'<div class="tiny muted" style="margin-top:3px">'+(ev?'開催日：'+esc(ev.openday||'')+(ev.dest?' ・ '+esc(ev.dest):''):'')+'</div></div>'
+    +'<button class="ico-btn" onclick="delReq(\''+r.id+'\')" aria-label="削除"><i class="ti ti-trash"></i></button></div>'
+    +'<div class="tiny" style="margin-top:10px;display:flex;gap:14px;flex-wrap:wrap">'
+    +'<span class="muted"><i class="ti ti-user-edit" style="vertical-align:-2px"></i> 依頼：'+(esc(r.requester)||'未設定')+'</span>'
+    +'<span class="muted"><i class="ti ti-user-check" style="vertical-align:-2px"></i> 担当：'+(esc(r.checker)||'未設定')+'</span></div>'
+    +(r.due?'<div class="tiny" style="margin-top:6px">'+dueLabel(r)+'</div>':'')
+    +'<button class="link" style="margin-top:10px" onclick="editReqMeta()">依頼者・担当・期限を編集</button></div>';
+  if(!r.locked){
+    h+='<div class="notice"><i class="ti ti-user-edit"></i> <b style="color:var(--blue-ink)">依頼の作成</b><br>各品目の個数を入れてください（使わないものは0のまま）。完了したら「依頼を確定」で確認モードに切り替わります。</div>';
+    LCATS.forEach(cat=>{ const list=litems().filter(it=>it.cat===cat); if(!list.length) return;
+      const anyQ=list.some(it=>(r.qty||{})[it.no]>0);
+      h+='<div class="cat-h">'+cat+(anyQ?'':' <span style="color:var(--sub);font-weight:400">（未入力）</span>')+'</div><div class="card" style="padding:4px 18px">';
+      list.forEach(it=>h+=qtyRow(r,it)); h+='</div>'; });
+    const cu=litems().filter(it=>it.cat==='custom'); if(cu.length){ h+='<div class="cat-h">追加品目</div><div class="card" style="padding:4px 18px">'; cu.forEach(it=>h+=qtyRow(r,it)); h+='</div>'; }
+    // 常備品（備品マスタから追加された品目）
+    const equip=master().filter(it=>!it.consumable && (r.equipQty||{})[it.no]>0);
+    if(equip.length){
+      h+='<div class="cat-h">常備品（備品マスタから）</div><div class="card" style="padding:4px 18px">';
+      equip.forEach(it=>h+=equipRow(r,it)); h+='</div>';
+    }
+    h+='<button class="btn btn-blue btn-block" style="margin-top:8px;margin-bottom:10px" onclick="addCustomItem()"><i class="ti ti-plus"></i> リストに無い品目を追加</button>';
+    h+='<button class="btn btn-block" style="margin-bottom:10px" onclick="openEquipPicker()"><i class="ti ti-box"></i> 備品マスタから常備品を追加</button>';
+    // 台数衝突チェック
+    const conflicts=checkEquipConflicts(r);
+    if(conflicts.length){
+      h+='<div class="card" style="border:1px solid var(--danger);background:var(--danger-soft);padding:14px 16px;margin-top:8px"><div style="font-weight:700;color:var(--danger-ink);margin-bottom:6px"><i class="ti ti-alert-triangle" style="vertical-align:-2px"></i> 台数不足の警告</div>';
+      conflicts.forEach(c=>{ h+='<div class="tiny" style="color:var(--danger-ink);margin-top:4px">・'+esc(c.name)+'：希望'+c.want+'、同時開催で使用中'+c.used+'、所有'+c.total+'</div>'; });
+      h+='</div>';
+    }
+    h+='<button class="btn btn-ok btn-block" style="margin-top:8px" onclick="lockReq()"><i class="ti ti-circle-check"></i> 依頼を確定して積み込者に依頼</button>';
+    h+='<button class="btn btn-block" style="margin-top:8px" onclick="shareReq()"><i class="ti ti-share-2"></i> 依頼内容をコピー</button>';
+  } else {
+    h+='<div class="notice"><i class="ti ti-checkup-list"></i> <b style="color:var(--purple-ink)">個数チェック</b>'+(r.checker?'（担当：'+esc(r.checker)+(r.workdate?' ・ '+esc(r.workdate):'')+'）':'<button class="link" style="margin-left:6px" onclick="openCheckStart()">担当者・作業日を入力</button>')+'<br>依頼通り積んだら左の枠をタップして✅。数が違うときだけ実数を入れてください。</div>';
+    const st=reqStats(r); const pct=st.kinds?Math.round(st.checked/st.kinds*100):0;
+    h+='<div class="card" style="padding:15px 18px"><div class="between"><span class="mini">確認の進捗</span><div class="stat"><b>'+st.checked+'</b><span class="muted tiny">/ '+st.kinds+' 品目</span></div></div><div class="bar '+(st.ng===0&&st.checked===st.kinds&&st.kinds>0?'ok':'')+'" style="margin-top:10px"><div style="width:'+pct+'%"></div></div>'+(st.ng>0?'<div class="tiny" style="margin-top:10px;color:var(--danger-ink)"><i class="ti ti-alert-triangle" style="vertical-align:-2px"></i> 数量不一致 '+st.ng+'件</div>':'')+'</div>';
+    LCATS.concat(['custom']).forEach(cat=>{ const list=litems().filter(it=>it.cat===cat&&(r.qty||{})[it.no]>0); if(!list.length) return;
+      h+='<div class="cat-h">'+(cat==='custom'?'追加品目':cat)+'</div><div class="card" style="padding:4px 18px">';
+      list.forEach(it=>h+=checkRow(r,it)); h+='</div>'; });
+    // 確認フェーズ：常備品
+    const equipCk=master().filter(it=>!it.consumable && (r.equipQty||{})[it.no]>0);
+    if(equipCk.length){
+      h+='<div class="cat-h">常備品（備品マスタから）</div><div class="card" style="padding:4px 18px">';
+      equipCk.forEach(it=>h+=equipCheckRow(r,it)); h+='</div>';
+    }
+    h+='<button class="btn btn-block" style="margin-top:14px" onclick="shareCheck()"><i class="ti ti-share-2"></i> 確認結果をコピー</button>';
+    if(r.done){
+      h+='<div class="card" style="margin-top:10px;background:var(--ok-soft);border-color:var(--ok)"><div class="row" style="gap:8px"><i class="ti ti-circle-check-filled" style="color:var(--ok);font-size:22px"></i><div><div style="font-weight:700;color:var(--ok)">積み込み完了</div><div class="tiny muted">'+esc(r.doneAt||'')+(r.checker?' ・ '+esc(r.checker):'')+'</div></div></div></div>';
+      h+='<button class="btn btn-blue btn-block" style="margin-top:8px" onclick="sendToSheet()"><i class="ti ti-table-export"></i> スプレッド／カレンダーに送る'+(r.sent?'（再送）':'')+'</button>';
+      if(r.sent) h+='<div class="tiny muted" style="text-align:center;margin-top:6px"><i class="ti ti-check" style="vertical-align:-2px"></i> 送信済み '+esc(r.sentAt||'')+'</div>';
+    } else {
+      h+='<button class="btn btn-ok btn-block" style="margin-top:8px" onclick="markDone()"><i class="ti ti-circle-check"></i> 積み込み完了にする</button>';
+    }
+  }
+  return h;
+}
+function backFromReq(){ const ev=findEvent(curReq.eventId); curReq=null; if(ev){ curEvent=ev; view='events'; } render(); }
+function dueLabel(r){
+  if(!r.due) return '';
+  const today=new Date(); today.setHours(0,0,0,0);
+  const d=new Date(r.due+'T00:00:00'); d.setHours(0,0,0,0);
+  const days=Math.round((d-today)/86400000);
+  const alert=days<=3;
+  let txt; if(days<0) txt='期限超過 '+(-days)+'日'; else if(days===0) txt='本日が期限'; else txt='あと'+days+'日';
+  const color=alert?'var(--danger-ink)':'var(--sub)';
+  return '<span style="color:'+color+';font-weight:'+(alert?'700':'400')+'"><i class="ti ti-alarm" style="vertical-align:-2px"></i> 積み込み準備期限：'+txt+'</span>';
+}
+function qtyRow(r,it){
+  const q=(r.qty||{})[it.no]||0;
+  return '<div class="li"><div class="nm">'+esc(it.name)+'</div>'
+    +'<div class="qtybox"><button class="qtybtn" onclick="bump('+it.no+',-1)">−</button>'
+    +'<input class="qtyval" type="number" inputmode="numeric" value="'+q+'" onchange="setQty('+it.no+',this.value)">'
+    +'<button class="qtybtn" onclick="bump('+it.no+',1)">＋</button><span class="unit">'+esc(it.unit)+'</span></div></div>';
+}
+function bump(no,d){ const r=curReq; if(!r.qty) r.qty={}; r.qty[no]=Math.max(0,(Number(r.qty[no])||0)+d); saveReqs(); render(); }
+function setQty(no,v){ const r=curReq; if(!r.qty) r.qty={}; r.qty[no]=Math.max(0,Number(v)||0); saveReqs(); render(); }
+function equipRow(r,it){
+  const q=(r.equipQty||{})[it.no]||0;
+  const total=Number(it.total||0);
+  return '<div class="li"><div class="nm">'+esc(it.name)+'<div class="tiny muted" style="font-weight:400">所有'+total+esc(it.unit||'')+'</div></div>'
+    +'<div class="qtybox"><button class="qtybtn" onclick="bumpEquip('+it.no+',-1)">−</button>'
+    +'<input class="qtyval" type="number" inputmode="numeric" value="'+q+'" onchange="setEquipQty('+it.no+',this.value)">'
+    +'<button class="qtybtn" onclick="bumpEquip('+it.no+',1)">＋</button><span class="unit">'+esc(it.unit||'')+'</span>'
+    +'<button class="ico-btn" onclick="removeEquip('+it.no+')" aria-label="削除"><i class="ti ti-x"></i></button></div></div>';
+}
+function bumpEquip(no,d){ const r=curReq; if(!r.equipQty) r.equipQty={}; r.equipQty[no]=Math.max(0,(Number(r.equipQty[no])||0)+d); saveReqs(); render(); }
+function setEquipQty(no,v){ const r=curReq; if(!r.equipQty) r.equipQty={}; r.equipQty[no]=Math.max(0,Number(v)||0); saveReqs(); render(); }
+function removeEquip(no){ const r=curReq; if(r.equipQty) delete r.equipQty[no]; if(r.equipActual) delete r.equipActual[no]; saveReqs(); render(); }
+function equipCheckRow(r,it){
+  const req=(r.equipQty||{})[it.no]||0; const act=(r.equipActual||{})[it.no];
+  const okState=(act!=null&&Number(act)===Number(req));
+  const ngState=(act!=null&&Number(act)!==Number(req));
+  const box=okState?'box done':'box';
+  let reqLine='<span class="reqbig">依頼数：'+req+esc(it.unit||'')+'</span>';
+  if(ngState) reqLine+=' <span class="reqng">→ 実数 '+act+esc(it.unit||'')+'</span>';
+  return '<div class="chk"><div class="'+box+'" onclick="toggleEquipCheck('+it.no+','+req+')"></div>'
+    +'<div class="cbody"><div class="nm2 '+(okState?'struck':'')+'">'+esc(it.name)+'</div>'
+    +'<div style="margin-top:4px">'+reqLine+'</div>'
+    +'<div style="margin-top:7px"><span class="tiny muted">数が違うとき実数：</span> <input class="qtyval" style="width:60px" type="number" inputmode="numeric" placeholder="-" value="'+(ngState?act:'')+'" onchange="setEquipActual('+it.no+',this.value)"> <span class="unit" style="width:auto">'+esc(it.unit||'')+'</span></div>'
+    +'</div></div>';
+}
+function toggleEquipCheck(no,req){ const r=curReq; if(!r.equipActual) r.equipActual={}; if(r.equipActual[no]!=null&&Number(r.equipActual[no])===Number(req)) delete r.equipActual[no]; else r.equipActual[no]=req; saveReqs(); render(); }
+function setEquipActual(no,v){ const r=curReq; if(!r.equipActual) r.equipActual={}; if(v==='') delete r.equipActual[no]; else r.equipActual[no]=Math.max(0,Number(v)||0); saveReqs(); render(); }
+function openEquipPicker(){
+  const equip=master().filter(it=>!it.consumable);
+  modal={type:'equipPicker',selected:Object.assign({},(curReq.equipQty||{}))};
+  renderModal();
+}
+function modalEquipPicker(){
+  const equip=master().filter(it=>!it.consumable);
+  const sel=modal.selected||{};
+  let h='<div class="between" style="margin-bottom:8px"><div style="font-weight:700;font-size:17px">備品マスタから選択</div><button class="ico-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x"></i></button></div>'
+    +'<div class="det" style="margin-bottom:8px">使用する常備品を選んで数を入れてください。0にすると使用しません。</div>';
+  BCATS.forEach(cat=>{
+    const list=equip.filter(it=>it.cat===cat);
+    if(!list.length) return;
+    list.sort((a,b)=>(a.order||0)-(b.order||0));
+    h+='<div class="cat-h">'+esc(cat)+'</div>';
+    list.forEach(it=>{
+      const cur=sel[it.no]||0;
+      h+='<div class="li"><div class="nm">'+esc(it.name)+'<div class="tiny muted" style="font-weight:400">所有'+(it.total||0)+esc(it.unit||'')+'</div></div>'
+        +'<div class="qtybox"><input class="qtyval" type="number" inputmode="numeric" value="'+cur+'" min="0" onchange="modal.selected['+it.no+']=Number(this.value)||0"><span class="unit">'+esc(it.unit||'')+'</span></div></div>';
+    });
+  });
+  h+='<button class="btn btn-blue btn-block" style="margin-top:14px" onclick="applyEquipPicker()">適用</button>';
+  return h;
+}
+function applyEquipPicker(){
+  const r=curReq; if(!r.equipQty) r.equipQty={};
+  const sel=modal.selected||{};
+  // 0は削除
+  Object.keys(sel).forEach(no=>{
+    const v=Number(sel[no])||0;
+    if(v>0) r.equipQty[no]=v; else delete r.equipQty[no];
+  });
+  saveReqs(); modal=null; render();
+}
+// 台数衝突チェック：同時開催のイベントで常備品が所有数を超えていないか
+function checkEquipConflicts(r){
+  const ev=findEvent(r.eventId);
+  if(!ev||!ev.openday||!ev.closeday) return [];
+  // 期間の前後1日を含めてロック
+  const myStart=parseDateAdd(ev.openday,-1);
+  const myEnd=parseDateAdd(ev.closeday,1);
+  const conflicts=[];
+  Object.keys(r.equipQty||{}).forEach(no=>{
+    const want=Number(r.equipQty[no])||0; if(want<=0) return;
+    const it=master().find(x=>x.no===Number(no)); if(!it) return;
+    const total=Number(it.total||0);
+    // 他の依頼でこの備品を使っている量を集計（期間が重なるもの）
+    let used=0;
+    DB.reqs.forEach(other=>{
+      if(other.id===r.id) return;
+      const oEv=findEvent(other.eventId);
+      if(!oEv||!oEv.openday||!oEv.closeday) return;
+      const oStart=parseDateAdd(oEv.openday,-1);
+      const oEnd=parseDateAdd(oEv.closeday,1);
+      // 期間が重なるか判定
+      if(oStart<=myEnd&&myStart<=oEnd){
+        const q=Number((other.equipQty||{})[no])||0;
+        used+=q;
+      }
+    });
+    if(want+used>total){
+      conflicts.push({name:it.name,want:want+esc(it.unit||''),used:used+esc(it.unit||''),total:total+esc(it.unit||'')});
+    }
+  });
+  return conflicts;
+}
+function parseDateAdd(s,offset){
+  if(!s) return null;
+  const p=String(s).split('-'); if(p.length!==3) return null;
+  const d=new Date(Number(p[0]),Number(p[1])-1,Number(p[2]));
+  d.setDate(d.getDate()+offset);
+  return d;
+}
+function checkRow(r,it){
+  const req=(r.qty||{})[it.no]||0; const act=(r.actual||{})[it.no];
+  const okState=(act!=null&&Number(act)===Number(req));
+  const ngState=(act!=null&&Number(act)!==Number(req));
+  const box=okState?'box done':'box';
+  let reqLine='<span class="reqbig">依頼数：'+req+esc(it.unit)+'</span>';
+  if(ngState) reqLine+=' <span class="reqng">→ 実数 '+act+esc(it.unit)+'</span>';
+  return '<div class="chk"><div class="'+box+'" onclick="toggleCheck('+it.no+','+req+')"></div>'
+    +'<div class="cbody"><div class="nm2 '+(okState?'struck':'')+'">'+esc(it.name)+'</div>'
+    +'<div style="margin-top:4px">'+reqLine+'</div>'
+    +'<div style="margin-top:7px"><span class="tiny muted">数が違うとき実数：</span> <input class="qtyval" style="width:60px" type="number" inputmode="numeric" placeholder="-" value="'+(ngState?act:'')+'" onchange="setActual('+it.no+',this.value)"> <span class="unit" style="width:auto">'+esc(it.unit)+'</span></div>'
+    +'</div></div>';
+}
+function toggleCheck(no,req){ const r=curReq; if(!r.actual) r.actual={}; if(r.actual[no]!=null&&Number(r.actual[no])===Number(req)) delete r.actual[no]; else r.actual[no]=req; saveReqs(); render(); }
+function setActual(no,v){ const r=curReq; if(!r.actual) r.actual={}; if(v==='') delete r.actual[no]; else r.actual[no]=Math.max(0,Number(v)||0); saveReqs(); render(); }
+function lockReq(){ modal={type:'confirm',msg:'依頼を確定して積み込者の確認モードに切り替えますか？',ok:function(){curReq.locked=true; saveReqs(); modal={type:'checkStart',checker:curReq.checker||'',workdate:curReq.workdate||''}; renderModal();}}; renderModal(); }
+function markDone(){ const r=curReq; const st=reqStats(r);
+  // 台数衝突を最終チェック
+  const conflicts=checkEquipConflicts(r);
+  if(conflicts.length){
+    let msg='常備品の台数が不足しています：\n';
+    conflicts.forEach(c=>{ msg+='・'+c.name+'（希望'+c.want+'、使用中'+c.used+'、所有'+c.total+'）\n'; });
+    msg+='\nこのまま完了するとカレンダーに記録は残りますが、運用上は調整が必要です。';
+    modal={type:'confirm',msg:msg,ok:function(){
+      if(st.ng>0){ modal={type:'confirm',msg:'数量不一致が'+st.ng+'件あります。このまま積み込み完了にしますか？',ok:function(){doMarkDone();}}; renderModal(); return; }
+      doMarkDone();
+    }};
+    renderModal();
+    return;
+  }
+  if(st.ng>0){ modal={type:'confirm',msg:'数量不一致が'+st.ng+'件あります。このまま積み込み完了にしますか？',ok:function(){doMarkDone();}}; renderModal(); return; }
+  doMarkDone();
+}
+function doMarkDone(){ const r=curReq; r.done=true; r.doneAt=new Date().toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  if(!r.stockDeducted){ deductStockOnComplete(r); r.stockDeducted=true; }
+  saveReqs();
+  modal={type:'confirm',msg:'積み込み完了にしました。スプレッド／カレンダーに送信しますか？',okLabel:'はい、送信する',cancelLabel:'いいえ',ok:function(){ modal=null; render(); sendToSheet(); },cancel:function(){ modal=null; render(); }};
+  renderModal();
+}
+function delReq(id){ modal={type:'confirm',needPass:true,msg:'この積み込み依頼を削除します。管理者パスワードを入力してください。',ok:function(){deleteReqFromGas(id); DB.reqs=DB.reqs.filter(r=>r.id!==id); LS.set('reqs',JSON.stringify(DB.reqs)); curReq=null; modal=null; render();}}; renderModal(); }
+function addCustomItem(){ modal={type:'customItem'}; renderModal(); }
+function saveCustomItem(){ const name=(document.getElementById('ci-name').value||'').trim(); if(!name){toast('品目名を入力してください');return;} const unit=(document.getElementById('ci-unit').value||'個').trim(); const no=Math.max(0,...litems().map(i=>i.no))+1; const m=litems().slice(); m.push({no:no,cat:'custom',name:name,unit:unit}); DB.litems=m; saveLitems(); if(!curReq.qty) curReq.qty={}; curReq.qty[no]=1; saveReqs(); modal=null; render(); }
+function shareReq(){
+  const r=curReq; const ev=findEvent(r.eventId);
+  let txt='【積み込み依頼】'+(ev?ev.name:'')+'\n'+((ev&&ev.team)?(ev.team+'チーム'):'')+(r.requester?' / 依頼：'+r.requester:'')+'\n'+((ev&&ev.dest)?'配送先住所：'+ev.dest+'\n':'')+(r.due?'積み込み準備期限：'+r.due+'\n':'')+((ev&&ev.carrier)?'運送：'+ev.carrier+'\n':'');
+  LCATS.concat(['custom']).forEach(cat=>{ const list=litems().filter(it=>it.cat===cat&&(r.qty||{})[it.no]>0); if(!list.length) return;
+    txt+='\n■'+(cat==='custom'?'追加品目':cat)+'\n'; list.forEach(it=>{ txt+='・'+it.name+' '+r.qty[it.no]+it.unit+'\n'; }); });
+  copyText(txt.trim());
+}
+function shareCheck(){
+  const r=curReq; const ev=findEvent(r.eventId);
+  let txt='【積み込み確認結果】'+(ev?ev.name:'')+'\n'+((ev&&ev.team)?(ev.team+'チーム'):'')+(r.checker?' / 担当：'+r.checker:'')+'\n';
+  let ng=[];
+  LCATS.concat(['custom']).forEach(cat=>{ const list=litems().filter(it=>it.cat===cat&&(r.qty||{})[it.no]>0); list.forEach(it=>{ const a=(r.actual||{})[it.no]; if(a!=null&&Number(a)!==Number(r.qty[it.no])) ng.push('・'+it.name+'：依頼'+r.qty[it.no]+' → 実数'+a+it.unit); }); });
+  const st=reqStats(r); txt+='\n確認 '+st.checked+'/'+st.kinds+'品目';
+  if(ng.length){ txt+='\n\n■数量不一致 '+ng.length+'件\n'+ng.join('\n'); } else if(st.checked===st.kinds&&st.kinds>0){ txt+='\n✓ すべて依頼通り'; }
+  copyText(txt.trim());
+}
+function copyText(t){ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast('コピーしました');}).catch(function(){fb(t);});} else fb(t); }
+function fb(t){ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('コピーしました');}catch(e){toast('コピーできませんでした');} document.body.removeChild(ta); }
+function toast(m){ const d=document.createElement('div'); d.className='toast'; d.textContent=m; document.body.appendChild(d); setTimeout(function(){d.remove();},1800); }
+function editReqMeta(){ const r=curReq; modal={type:'reqMeta',requester:r.requester||'',checker:r.checker||'',due:r.due||''}; renderModal(); }
+function openCheckStart(){ const r=curReq; modal={type:'checkStart',checker:r.checker||'',workdate:r.workdate||''}; renderModal(); }
+
+/* ===== GAS送信 ===== */
+function sendGas(payload,onOk,onErr){
+  if(!DB.cfg.gasUrl){ toast('スプレッド連携設定が未設定です'); if(onErr) onErr(); return; }
+  fetch(DB.cfg.gasUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).then(function(){ if(onOk) onOk(); }).catch(function(){ if(onErr) onErr(); });
+}
+function buildLoadPayload(r){
+  const items=[]; const ev=findEvent(r.eventId);
+  LCATS.concat(['custom']).forEach(cat=>{ litems().filter(it=>it.cat===cat&&(r.qty||{})[it.no]>0).forEach(it=>{
+    const req=r.qty[it.no]; const act=(r.actual||{})[it.no];
+    items.push({category:(cat==='custom'?'追加品目':cat),name:it.name,unit:it.unit,request:req,actual:(act==null?'':act),match:(act==null?'未確認':(Number(act)===Number(req)?'一致':'不一致'))});
+  }); });
+  // 常備品も品目に含める
+  master().filter(it=>!it.consumable && (r.equipQty||{})[it.no]>0).forEach(it=>{
+    const req=r.equipQty[it.no]; const act=(r.equipActual||{})[it.no];
+    items.push({category:'常備品（'+it.cat+'）',name:it.name,unit:it.unit||'',request:req,actual:(act==null?'':act),match:(act==null?'未確認':(Number(act)===Number(req)?'一致':'不一致'))});
+  });
+  const st=reqStats(r);
+  return {action:'loading_complete', sentAt:new Date().toISOString(), eventId:r.eventId,
+    venue:ev?ev.name:'', dest:ev?ev.dest:'', team:ev?ev.team:'', requester:r.requester||'', checker:r.checker||'',
+    date:ev?ev.date:'', openday:ev?ev.openday:'', closeday:ev?ev.closeday:'', due:r.due||'', workdate:r.workdate||'', carrier:ev?ev.carrier:'',
+    done:!!r.done, doneAt:r.doneAt||'',
+    kinds:st.kinds, checked:st.checked, mismatch:st.ng, items:items};
+}
+function sendToSheet(){
+  const r=curReq;
+  if(!DB.cfg.gasUrl){ openGasSetup(); return; }
+  toast('送信中…');
+  sendGas(buildLoadPayload(r),function(){ r.sent=true; r.sentAt=new Date().toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}); saveReqs(); render(); toast('スプレッド／カレンダーに送信しました'); },function(){ toast('送信に失敗しました。通信とURLを確認してください'); });
+}
+function openGasSetup(){ modal={type:'gasSetup',url:DB.cfg.gasUrl||''}; renderModal(); }
+function saveGasSetup(){ DB.cfg.gasUrl=(document.getElementById('gas-url').value||'').trim(); saveCfg(); modal=null; render(); toast('送信先を保存しました'); }
+
+/* ===== 備品マスタ ===== */
+function masterHTML(){
+  let h='<button class="btn btn-blue btn-block" onclick="newItem()" style="margin-bottom:14px"><i class="ti ti-plus"></i> 備品を追加</button>';
+  h+='<div class="seg" style="margin-bottom:6px"><button class="'+(masterFilter==='all'?'on':'')+'" onclick="setMF(\'all\')">全て</button><button class="'+(masterFilter==='cons'?'on':'')+'" onclick="setMF(\'cons\')">消耗品</button><button class="'+(masterFilter==='equip'?'on':'')+'" onclick="setMF(\'equip\')">常備品</button></div>';
+  h+='<div class="tiny muted" style="margin:8px 0 4px;text-align:right"><i class="ti ti-grip-vertical" style="vertical-align:-2px"></i> 左の取手で並び替え</div>';
+  BCATS.forEach(cat=>{ let list=master().filter(it=>it.cat===cat);
+    if(masterFilter==='cons') list=list.filter(it=>it.consumable); if(masterFilter==='equip') list=list.filter(it=>!it.consumable);
+    if(!list.length) return;
+    list.sort((a,b)=>(a.order||0)-(b.order||0));
+    h+='<div class="cat-h">'+cat+'</div><div class="dnd-zone" data-zone="master-'+esc(cat)+'">';
+    list.forEach(it=>{
+      const place=it.place?esc(it.place):'<span style="color:var(--danger-ink)">未入力（タップで入力）</span>';
+      h+='<div class="dnd-item card" draggable="true" data-no="'+it.no+'" style="padding:15px 18px;margin-bottom:10px;cursor:grab" '
+        +'ondragstart="dndStart(event,'+it.no+',\'master\',\''+esc(cat)+'\')" ondragover="dndOver(event)" ondrop="dndDrop(event,'+it.no+',\'master\',\''+esc(cat)+'\')" ondragend="dndEnd(event)">'
+        +'<div class="between"><div class="row" style="gap:8px;min-width:0;flex:1" onclick="showItem('+it.no+')">'
+        +'<i class="ti ti-grip-vertical muted" style="font-size:18px;cursor:grab"></i>'
+        +'<div style="min-width:0;flex:1"><div style="font-weight:600;font-size:14px">'+esc(it.name)+' '+(it.consumable?'<span class="pill pill-cons">消耗品</span>':'')+'</div>'
+        +'<div class="det">保管場所：'+place+'</div></div>'
+        +'</div><i class="ti ti-chevron-right muted" style="font-size:17px" onclick="showItem('+it.no+')"></i></div></div>';
+    });
+    h+='</div>';
+  });
+  return h;
+}
+function setMF(f){ masterFilter=f; render(); }
+function newItem(){ modal={type:'editItem',item:{no:nextNo(),cat:'レジ周辺備品',name:'',use:'',jisha:'必須',mall:'必須',honsha:'必要時',a:1,b:1,unit:'個',place:'',pri:'中',venue:'',damage:'',report:'',consumable:false,warehouse:false,isNew:true}}; renderModal(); }
+function nextNo(){ return Math.max(0,...master().map(i=>i.no))+1; }
+function showItem(no){ modal={type:'viewItem',item:master().find(i=>i.no===no)}; renderModal(); }
+function editItem(no){ modal={type:'editItem',item:JSON.parse(JSON.stringify(master().find(i=>i.no===no)))}; renderModal(); }
+function delItem(no){ modal={type:'confirm',needPass:true,msg:'この備品をマスタから削除します。管理者パスワードを入力してください。',ok:function(){DB.master=master().filter(i=>i.no!==no); saveMaster(); modal=null; render();}}; renderModal(); }
+
+/* ===== 消耗品発注 ===== */
+function orderItems(){ return master().filter(it=>it.orderManage); }
+function orderHTML(){
+  const items=orderItems();
+  let h='<div class="notice"><i class="ti ti-info-circle"></i> 発注管理する消耗品の一覧です。積み込み完了で自動的に在庫が減ります。発注点を下回ると発注候補に出ます。発注ボタンでスプレッドシートに発注履歴が記録されます。</div>';
+  h+='<button class="btn btn-blue btn-block" onclick="newOrderItem()" style="margin-bottom:14px"><i class="ti ti-plus"></i> 発注品目を追加</button>';
+  if(!items.length){ h+='<div class="empty"><i class="ti ti-shopping-cart-off"></i>発注品目がありません。<br>上のボタンから追加できます。</div>'; return h; }
+  items.sort((a,b)=>(a.order||0)-(b.order||0));
+  const low=items.filter(it=>{const s=(it.stock!=null?Number(it.stock):null); return s!=null&&s<=Number(it.orderPoint||0);});
+  if(low.length){ h+='<div class="cat-h" style="color:var(--danger-ink)"><i class="ti ti-alert-triangle" style="font-size:13px"></i> 発注候補 · '+low.length+'件</div>'; low.forEach(it=>h+=orderRow(it,true)); }
+  h+='<div class="cat-h">消耗品 在庫一覧 <span style="color:var(--sub);font-weight:400;font-size:10px;letter-spacing:0">取手で並び替え</span></div><div class="dnd-zone" data-zone="order">';
+  items.forEach(it=>{ if(low.indexOf(it)<0) h+=orderRow(it,false); });
+  h+='</div>';
+  return h;
+}
+function orderRow(it,al){
+  const stock=(it.stock!=null?Number(it.stock):null);
+  const op=Number(it.orderPoint||0);
+  const isLow=stock!=null&&stock<=op;
+  return '<div class="dnd-item card" draggable="true" data-no="'+it.no+'" style="padding:15px 18px;margin-bottom:10px;'+(al?'border:1px solid var(--danger)':'')+'" '
+    +'ondragstart="dndStart(event,'+it.no+',\'order\',\'\')" ondragover="dndOver(event)" ondrop="dndDrop(event,'+it.no+',\'order\',\'\')" ondragend="dndEnd(event)">'
+    +'<div class="between"><div class="row" style="gap:8px;min-width:0;flex:1"><i class="ti ti-grip-vertical muted" style="font-size:18px;cursor:grab"></i><div style="font-weight:700;font-size:15px;flex:1">'+esc(it.name)+'</div></div><span class="pill pill-cons">消耗品</span></div>'
+    +'<div class="det" style="margin-top:6px">'+esc(it.orderBase||'')+(it.orderUnit?' ・ '+esc(it.orderUnit):'')+'</div>'
+    +'<div class="row" style="margin-top:12px;gap:12px;align-items:flex-end;flex-wrap:wrap">'
+    +'<div style="flex:1;min-width:120px"><div class="tiny muted">現在在庫</div><div style="font-size:24px;font-weight:700;color:'+(isLow?'var(--danger-ink)':'var(--blue)')+';line-height:1">'+(stock==null?'-':stock)+'<span style="font-size:13px;font-weight:600;margin-left:4px;color:var(--sub)">'+esc(it.unit||'')+'</span></div></div>'
+    +'<div style="flex:1;min-width:90px"><div class="tiny muted">発注点</div><div style="font-size:18px;font-weight:600;line-height:1">'+op+'<span style="font-size:12px;color:var(--sub);margin-left:3px">'+esc(it.unit||'')+'</span></div></div>'
+    +'<button class="btn" style="padding:8px 12px;font-size:12px" onclick="openStockEdit('+it.no+')"><i class="ti ti-pencil"></i> 更新</button>'
+    +'<button class="btn" style="padding:8px 12px;font-size:12px" onclick="editItem('+it.no+')"><i class="ti ti-settings"></i> 編集</button>'
+    +'<button class="btn '+(isLow?'btn-danger':'btn-blue')+'" style="padding:8px 12px;font-size:12px" onclick="openOrderForm('+it.no+')"><i class="ti ti-shopping-cart"></i> 発注</button>'
+    +'</div>'
+    +(isLow?'<div class="tiny" style="margin-top:10px;color:var(--danger-ink);font-weight:600"><i class="ti ti-shopping-cart" style="vertical-align:-2px"></i> 発注点以下です。発注してください</div>':'')+'</div>';
+}
+function openStockEdit(no){
+  const it=master().find(x=>x.no===no);
+  modal={type:'stockEdit',no:no,name:it.name,unit:it.unit,stock:(it.stock!=null?it.stock:'')};
+  renderModal();
+}
+function saveStockEdit(no){
+  const v=document.getElementById('se-stock').value;
+  if(v===''){ toast('数値を入力してください'); return; }
+  const n=Math.max(0,Number(v));
+  const m=master().slice();
+  const idx=m.findIndex(x=>x.no===no);
+  if(idx>=0){ m[idx]=Object.assign({},m[idx],{stock:n}); DB.master=m; saveMaster(); }
+  modal=null; render(); toast('在庫を更新しました');
+}
+// 新規発注品目追加（発注タブから）
+function newOrderItem(){
+  modal={type:'editItem',item:{no:nextNo(),cat:'消耗品',name:'',use:'',jisha:'必要時',mall:'必須',honsha:'必要時',a:0,b:0,total:0,unit:'個',place:'',pri:'中',venue:'',damage:'',report:'',consumable:true,warehouse:false,orderManage:true,stock:0,orderPoint:0,orderUnit:'',orderBase:'',janCode:'',size:'',color:'',lotSize:'',lotPrice:'',supplier:'',isNew:true}};
+  renderModal();
+}
+// 発注フォーム
+function openOrderForm(no){
+  const it=master().find(x=>x.no===no);
+  modal={type:'orderForm',no:no,item:it,requester:'',lotCount:'1'};
+  renderModal();
+}
+function submitOrder(){
+  const it=modal.item;
+  const requester=readPerson('of-requester','of-requester-o');
+  const lotCount=document.getElementById('of-lotcount').value||'1';
+  if(!requester){ toast('依頼者を選んでください'); return; }
+  if(Number(lotCount)<=0){ toast('希望ロット数を入力してください'); return; }
+  if(!DB.cfg.gasUrl){ toast('スプレッド連携設定が未設定です'); return; }
+  const payload={action:'order_request', sentAt:new Date().toISOString(),
+    requestDate:new Date().toISOString().slice(0,10),
+    itemName:it.name, janCode:it.janCode||'', size:it.size||'', color:it.color||'',
+    lotSize:it.lotSize||'', lotPrice:it.lotPrice||'', lotCount:Number(lotCount),
+    requester:requester, supplier:it.supplier||''};
+  toast('送信中…');
+  fetch(DB.cfg.gasUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
+    .then(function(){ toast('発注履歴に記録しました'); modal=null; render(); })
+    .catch(function(){ toast('送信に失敗しました'); });
+}
+// 積み込み完了時に消耗品在庫から自動減算
+function deductStockOnComplete(r){
+  const m=master().slice();
+  let changed=false;
+  Object.keys(r.qty||{}).forEach(lno=>{
+    const q=Number(r.qty[lno])||0; if(q<=0) return;
+    const map=LOAD_TO_MASTER[lno]; if(!map) return;
+    const idx=m.findIndex(x=>x.no===map.masterNo);
+    if(idx<0) return;
+    const cur=Number(m[idx].stock||0);
+    const next=Math.max(0,cur-q*(map.ratio||1));
+    m[idx]=Object.assign({},m[idx],{stock:next});
+    changed=true;
+  });
+  if(changed){ DB.master=m; saveMaster(); }
+}
+
+/* ===== ドラッグ&ドロップ並び替え ===== */
+let dndState={dragNo:null,zone:null,key:null};
+function dndStart(e,no,zone,key){
+  dndState={dragNo:no,zone:zone,key:key};
+  if(e.target&&e.target.classList) e.target.classList.add('dragging');
+  if(e.dataTransfer){ e.dataTransfer.effectAllowed='move'; try{e.dataTransfer.setData('text/plain',String(no));}catch(_){} }
+}
+function dndOver(e){ e.preventDefault(); if(e.dataTransfer) e.dataTransfer.dropEffect='move'; }
+function dndEnd(e){
+  if(e.target&&e.target.classList) e.target.classList.remove('dragging');
+  document.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over'));
+}
+function dndDrop(e,targetNo,zone,key){
+  e.preventDefault();
+  const srcNo=dndState.dragNo;
+  if(srcNo==null||srcNo===targetNo||dndState.zone!==zone||dndState.key!==key){ dndEnd(e); return; }
+  const m=master().slice();
+  let list;
+  if(zone==='master') list=m.filter(x=>x.cat===key);
+  else if(zone==='order') list=m.filter(x=>x.orderManage);
+  else { dndEnd(e); return; }
+  list.sort((a,b)=>(a.order||0)-(b.order||0));
+  const srcIdx=list.findIndex(x=>x.no===srcNo);
+  const tgtIdx=list.findIndex(x=>x.no===targetNo);
+  if(srcIdx<0||tgtIdx<0){ dndEnd(e); return; }
+  const moved=list.splice(srcIdx,1)[0];
+  list.splice(tgtIdx,0,moved);
+  list.forEach((it,i)=>{ const idx=m.findIndex(x=>x.no===it.no); if(idx>=0) m[idx]=Object.assign({},m[idx],{order:i}); });
+  DB.master=m; saveMaster(); dndEnd(e); render();
+}
+
+/* ===== モーダル ===== */
+function closeModal(){ modal=null; renderModal(); }
+function renderModal(){
+  const root=document.getElementById('modal-root');
+  if(!modal){ root.innerHTML=''; document.body.style.overflow=''; return; }
+  document.body.style.overflow='hidden';
+  let inner='';
+  if(modal.type==='confirm'){
+    if(modal.needPass){
+      inner='<div style="font-weight:700;font-size:16px;margin-bottom:6px"><i class="ti ti-lock" style="vertical-align:-2px"></i> 管理者パスワード</div>'
+        +'<div class="det" style="margin-bottom:12px">'+esc(modal.msg)+'</div>'
+        +'<input class="field" id="del-pass" type="password" inputmode="numeric" placeholder="パスワードを入力" autocomplete="off">'
+        +(modal.err?'<div class="tiny" style="color:var(--danger-ink);margin-top:6px">パスワードが違います</div>':'')
+        +'<div class="row" style="justify-content:flex-end;gap:10px;margin-top:16px"><button class="btn" onclick="closeModal()">キャンセル</button><button class="btn btn-danger" onclick="confirmPass()">削除する</button></div>';
+    } else {
+      inner='<div style="font-size:15px;margin-bottom:18px;line-height:1.5">'+esc(modal.msg)+'</div><div class="row" style="justify-content:flex-end;gap:10px"><button class="btn" onclick="confirmCancel()">'+esc(modal.cancelLabel||'キャンセル')+'</button><button class="btn btn-blue" onclick="confirmOk()">'+esc(modal.okLabel||'OK')+'</button></div>';
+    }
+  }
+  else if(modal.type==='newEvent') inner=modalNewEvent();
+  else if(modal.type==='editEvent') inner=modalEditEvent();
+  else if(modal.type==='newReq') inner=modalNewReq();
+  else if(modal.type==='reqMeta') inner=modalReqMeta();
+  else if(modal.type==='checkStart') inner=modalCheckStart();
+  else if(modal.type==='gasSetup') inner=modalGasSetup();
+  else if(modal.type==='customItem') inner=modalCustomItem();
+  else if(modal.type==='viewItem') inner=modalViewItem(modal.item);
+  else if(modal.type==='editItem') inner=modalEditItem(modal.item);
+  else if(modal.type==='stockEdit') inner=modalStockEdit();
+  else if(modal.type==='orderForm') inner=modalOrderForm();
+  else if(modal.type==='equipPicker') inner=modalEquipPicker();
+  const dismiss=(modal.type==='checkStart'||(modal.type==='newEvent'))?'':'if(event.target===this)closeModal()';
+  root.innerHTML='<div class="modal-bg" onclick="'+dismiss+'"><div class="modal">'+inner+'</div></div>';
+}
+function confirmOk(){ if(modal&&modal.ok) modal.ok(); }
+function confirmCancel(){ if(modal&&modal.cancel){ modal.cancel(); } else { closeModal(); } }
+var ADMIN_PASS='0302';
+function confirmPass(){ const v=(document.getElementById('del-pass').value||'').trim(); if(v!==ADMIN_PASS){ modal.err=true; renderModal(); return; } const fn=modal.ok; modal=null; if(fn) fn(); }
+
+/* ===== イベント新規・編集モーダル ===== */
+function modalNewEvent(){
+  if(!modal.team) modal.team='A';
+  return '<div class="between" style="margin-bottom:14px"><div style="font-weight:700;font-size:17px">新しいイベント</div><button class="ico-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x"></i></button></div>'
+    +'<div class="det" style="margin-bottom:6px">必須項目はこの3つ。配送先や運送業者はあとから追加できます。</div>'
+    +'<label class="label">担当チーム <span style="color:var(--danger)">*</span></label><div class="seg">'+TEAMS.map(t=>'<button class="'+(modal.team===t?'on':'')+'" onclick="modal.team=\''+t+'\';renderModal()">'+t+'チーム</button>').join('')+'</div>'
+    +'<label class="label">会場名 <span style="color:var(--danger)">*</span></label><input class="field" id="ne-name" placeholder="例：イオンモール浜松市野 POPUP">'
+    +'<label class="label">イベント初日（開催日） <span style="color:var(--danger)">*</span></label><input class="field" id="ne-openday" type="date">'
+    +'<label class="label">開催最終日 <span style="color:var(--danger)">*</span></label><input class="field" id="ne-closeday" type="date">'
+    +'<div class="det" style="margin-top:4px">開催期間の帯と、開催14日前〜前日の準備期間の帯がGoogleカレンダーに自動で入ります。</div>'
+    +'<label class="label">配送先住所（任意・あとからでOK）</label><input class="field" id="ne-dest" placeholder="例：静岡県浜松市〇〇">'
+    +'<label class="label">日程メモ（任意）</label><input class="field" id="ne-date" placeholder="例：6/14〜6/16">'
+    +'<label class="label">運送業者（任意・あとからでOK）</label><input class="field" id="ne-carrier" placeholder="例：大翔トランスポート">'
+    +'<div class="row" style="justify-content:flex-end;gap:10px;margin-top:18px"><button class="btn" onclick="closeModal()">キャンセル</button><button class="btn btn-blue" onclick="submitNewEvent()">登録してカレンダーに送信</button></div>';
+}
+function submitNewEvent(){
+  const name=(document.getElementById('ne-name').value||'').trim();
+  const openday=document.getElementById('ne-openday').value||'';
+  const closeday=document.getElementById('ne-closeday').value||'';
+  if(!name){ toast('会場名を入力してください'); return; }
+  if(!openday){ toast('イベント初日（開催日）を入力してください'); return; }
+  if(!closeday){ toast('開催最終日を入力してください'); return; }
+  if(closeday<openday){ toast('開催最終日は初日より後の日付にしてください'); return; }
+  const ev={id:uid(),name:name,team:modal.team||'A',openday:openday,closeday:closeday,
+    dest:(document.getElementById('ne-dest').value||'').trim(),
+    date:(document.getElementById('ne-date').value||'').trim(),
+    carrier:(document.getElementById('ne-carrier').value||'').trim(),
+    calSynced:false};
+  DB.events.push(ev); saveEvents(); modal=null; render();
+  toast('送信中…');
+  sendGas({action:'event_create',event:ev},function(){ ev.calSynced=true; saveEvents(); render(); toast('カレンダーに登録しました'); },function(){ toast('カレンダー送信に失敗しました'); });
+}
+function modalEditEvent(){
+  const ev=modal.ev;
+  if(!ev.team) ev.team='A';
+  return '<div class="between" style="margin-bottom:14px"><div style="font-weight:700;font-size:17px">イベントを編集</div><button class="ico-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x"></i></button></div>'
+    +'<label class="label">担当チーム</label><div class="seg">'+TEAMS.map(t=>'<button class="'+(ev.team===t?'on':'')+'" onclick="modal.ev.team=\''+t+'\';renderModal()">'+t+'チーム</button>').join('')+'</div>'
+    +'<label class="label">会場名</label><input class="field" id="ee-name" value="'+esc(ev.name)+'">'
+    +'<label class="label">イベント初日（開催日）</label><input class="field" id="ee-openday" type="date" value="'+esc(ev.openday)+'">'
+    +'<label class="label">開催最終日</label><input class="field" id="ee-closeday" type="date" value="'+esc(ev.closeday||'')+'">'
+    +'<label class="label">配送先住所</label><input class="field" id="ee-dest" value="'+esc(ev.dest||'')+'">'
+    +'<label class="label">日程メモ</label><input class="field" id="ee-date" value="'+esc(ev.date||'')+'">'
+    +'<label class="label">運送業者</label><input class="field" id="ee-carrier" value="'+esc(ev.carrier||'')+'">'
+    +'<button class="btn btn-blue btn-block" style="margin-top:18px" onclick="submitEditEvent()">保存してカレンダーを更新</button>';
+}
+function submitEditEvent(){
+  const ev=findEvent(modal.ev.id);
+  if(!ev) return;
+  ev.team=modal.ev.team;
+  ev.name=(document.getElementById('ee-name').value||'').trim()||ev.name;
+  ev.openday=document.getElementById('ee-openday').value||ev.openday;
+  ev.closeday=document.getElementById('ee-closeday').value||ev.closeday;
+  ev.dest=(document.getElementById('ee-dest').value||'').trim();
+  ev.date=(document.getElementById('ee-date').value||'').trim();
+  ev.carrier=(document.getElementById('ee-carrier').value||'').trim();
+  saveEvents(); modal=null; render();
+  toast('送信中…');
+  sendGas({action:'event_update',event:ev},function(){ ev.calSynced=true; saveEvents(); render(); toast('カレンダーを更新しました'); },function(){ toast('カレンダー更新に失敗しました'); });
+}
+
+/* ===== 積み込み依頼 新規モーダル ===== */
+function modalNewReq(){
+  const ev=modal.ev;
+  return '<div class="between" style="margin-bottom:8px"><div style="font-weight:700;font-size:17px">積み込み依頼を作成</div><button class="ico-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x"></i></button></div>'
+    +'<div class="card" style="padding:12px 14px;margin-bottom:6px;background:var(--blue-soft);border-color:transparent"><div class="tiny" style="color:var(--blue-ink);font-weight:600">対象イベント</div><div style="font-weight:700">'+esc(ev.name)+'</div><div class="tiny muted">'+(ev.team||'A')+'チーム ・ 開催'+esc(ev.openday)+'</div></div>'
+    +'<label class="label">依頼者名 <span style="color:var(--danger)">*</span></label>'+personSelect('nr-requester','nr-requester-o',REQUESTERS,'')
+    +'<label class="label">積み込み準備期限 <span style="color:var(--danger)">*</span></label><input class="field" id="nr-due" type="date">'
+    +'<label class="label">数量の雛形</label><select class="field" id="nr-tpl"><option value="">空の状態から作る</option>'+TEMPLATES.map(t=>'<option value="'+t.id+'">'+esc(t.name)+' を流用</option>').join('')+'</select>'
+    +'<div class="det" style="margin-top:6px">過去会場の数量を流用して、差分だけ直せます。</div>'
+    +'<button class="btn btn-blue btn-block" style="margin-top:18px" onclick="submitNewReq()">作成する</button>';
+}
+function submitNewReq(){
+  const requester=readPerson('nr-requester','nr-requester-o');
+  const due=document.getElementById('nr-due').value||'';
+  if(!requester){ toast('依頼者名を選んでください'); return; }
+  if(!due){ toast('積み込み準備期限を入力してください'); return; }
+  const tplId=document.getElementById('nr-tpl').value;
+  let qty={}; if(tplId){ const t=TEMPLATES.find(x=>x.id===tplId); if(t) qty=Object.assign({},t.qty); }
+  const ev=modal.ev;
+  const r={id:uid(),eventId:ev.id,name:ev.name,team:ev.team,requester:requester,checker:'',due:due,workdate:'',qty:qty,actual:{},equipQty:{},equipActual:{},locked:false};
+  DB.reqs.push(r); curReq=r; saveReqs(); modal=null; view='load'; render();
+}
+function modalReqMeta(){
+  const m=modal;
+  return '<div class="between" style="margin-bottom:14px"><div style="font-weight:700;font-size:17px">依頼者・担当・期限</div><button class="ico-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x"></i></button></div>'
+    +'<label class="label">依頼者名</label>'+personSelect('rm-requester','rm-requester-o',REQUESTERS,m.requester)
+    +'<label class="label">積み込み担当者</label>'+personSelect('rm-checker','rm-checker-o',LOADERS,m.checker)
+    +'<label class="label">積み込み準備期限</label><input class="field" id="rm-due" type="date" value="'+esc(m.due)+'">'
+    +'<button class="btn btn-blue btn-block" style="margin-top:18px" onclick="saveReqMeta()">保存</button>';
+}
+function saveReqMeta(){ const r=curReq; r.requester=readPerson('rm-requester','rm-requester-o'); r.checker=readPerson('rm-checker','rm-checker-o'); r.due=document.getElementById('rm-due').value||''; saveReqs(); modal=null; render(); }
+function modalCheckStart(){
+  const m=modal;
+  return '<div class="between" style="margin-bottom:6px"><div style="font-weight:700;font-size:17px">積み込み確認の開始</div></div>'
+    +'<div class="det" style="margin-bottom:6px">確認を始める前に、担当者と作業日を入力してください。</div>'
+    +'<label class="label">積み込み担当者 <span style="color:var(--danger)">*</span></label>'+personSelect('cs-checker','cs-checker-o',LOADERS,m.checker)
+    +'<label class="label">作業日 <span style="color:var(--danger)">*</span></label><input class="field" id="cs-workdate" type="date" value="'+esc(m.workdate)+'">'
+    +'<button class="btn btn-blue btn-block" style="margin-top:18px" onclick="saveCheckStart()">確認をはじめる</button>';
+}
+function saveCheckStart(){ const checker=readPerson('cs-checker','cs-checker-o'); const workdate=document.getElementById('cs-workdate').value||''; if(!checker){ toast('積み込み担当者を選択してください'); return; } if(!workdate){ toast('作業日を入力してください'); return; } const r=curReq; r.checker=checker; r.workdate=workdate; saveReqs(); modal=null; render(); toast('確認モードにしました'); }
+function modalGasSetup(){
+  return '<div class="between" style="margin-bottom:8px"><div style="font-weight:700;font-size:17px">スプレッド／カレンダー連携</div><button class="ico-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x"></i></button></div>'
+    +'<div class="det" style="margin-bottom:10px">Apps Scriptで発行したウェブアプリのURLを貼り付けてください。</div>'
+    +'<label class="label">ウェブアプリ URL</label><input class="field" id="gas-url" value="'+esc(modal.url)+'" placeholder="https://script.google.com/macros/s/.../exec">'
+    +'<button class="btn btn-blue btn-block" style="margin-top:18px" onclick="saveGasSetup()">保存</button>';
+}
+function modalCustomItem(){
+  return '<div class="between" style="margin-bottom:14px"><div style="font-weight:700;font-size:17px">品目を追加</div><button class="ico-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x"></i></button></div>'
+    +'<label class="label">品目名</label><input class="field" id="ci-name" placeholder="例：のぼり旗">'
+    +'<label class="label">単位</label><input class="field" id="ci-unit" value="個">'
+    +'<button class="btn btn-blue btn-block" style="margin-top:18px" onclick="saveCustomItem()">追加する</button>';
+}
+function modalStockEdit(){
+  const m=modal;
+  return '<div class="between" style="margin-bottom:8px"><div style="font-weight:700;font-size:17px">在庫を更新</div><button class="ico-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x"></i></button></div>'
+    +'<div class="det" style="margin-bottom:8px">'+esc(m.name)+'</div>'
+    +'<label class="label">現在の在庫数</label><div class="row" style="gap:8px;align-items:center"><input class="field" id="se-stock" type="number" inputmode="numeric" value="'+esc(m.stock)+'" style="flex:1"><span class="muted">'+esc(m.unit)+'</span></div>'
+    +'<div class="det" style="margin-top:8px">棚卸ししたタイミングで現実の在庫数に上書きしてください。</div>'
+    +'<button class="btn btn-blue btn-block" style="margin-top:18px" onclick="saveStockEdit('+m.no+')">保存</button>';
+}
+function modalOrderForm(){
+  const m=modal; const it=m.item;
+  const missing=[];
+  if(!it.janCode) missing.push('品番/JAN');
+  if(!it.lotSize) missing.push('発注ロット');
+  if(!it.lotPrice) missing.push('1ロット金額');
+  if(!it.supplier) missing.push('発注先');
+  return '<div class="between" style="margin-bottom:14px"><div style="font-weight:700;font-size:17px">発注する</div><button class="ico-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x"></i></button></div>'
+    +'<div class="card" style="padding:12px 14px;margin-bottom:8px;background:var(--blue-soft);border-color:transparent">'
+    +'<div style="font-weight:700">'+esc(it.name)+'</div>'
+    +'<div class="tiny muted" style="margin-top:4px">'+(it.janCode?'品番/JAN: '+esc(it.janCode)+'<br>':'')
+    +(it.lotSize?'発注ロット: '+esc(it.lotSize)+'<br>':'')
+    +(it.lotPrice?'1ロット金額: '+esc(it.lotPrice)+'<br>':'')
+    +(it.supplier?'発注先: '+esc(it.supplier):'')+'</div></div>'
+    +(missing.length?'<div class="tiny" style="color:var(--danger-ink);margin-bottom:6px">未設定: '+missing.join('・')+'。<button class="link" onclick="modal=null;render();editItem('+it.no+')">備品マスタで設定する</button></div>':'')
+    +'<label class="label">依頼日</label><input class="field" id="of-date" type="date" value="'+new Date().toISOString().slice(0,10)+'" disabled>'
+    +'<label class="label">希望ロット数 <span style="color:var(--danger)">*</span></label><input class="field" id="of-lotcount" type="number" inputmode="numeric" value="'+esc(m.lotCount)+'" min="1">'
+    +'<label class="label">依頼者 <span style="color:var(--danger)">*</span></label>'+personSelect('of-requester','of-requester-o',REQUESTERS,m.requester)
+    +'<button class="btn btn-blue btn-block" style="margin-top:18px" onclick="submitOrder()"><i class="ti ti-send"></i> 発注をスプレッドシートに送信</button>';
+}
+function modalViewItem(it){
+  return '<div class="between" style="margin-bottom:8px"><div style="font-weight:700;font-size:17px">'+esc(it.name)+' '+(it.consumable?'<span class="pill pill-cons">消耗品</span>':'')+'</div><button class="ico-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x"></i></button></div>'
+    +'<div class="det" style="margin-bottom:12px">'+esc(it.use)+'</div>'
+    +'<table class="infotbl">'
+    +'<tr><td class="k">分類</td><td>'+esc(it.cat)+'</td></tr>'
+    +'<tr><td class="k">所有台数</td><td><b>'+(it.total!=null?it.total:0)+esc(it.unit||'個')+'</b></td></tr>'
+    +'<tr><td class="k">保管場所</td><td>'+(it.place?esc(it.place):'<span style="color:var(--danger-ink)">未入力</span>')+'</td></tr>'
+    +'</table>'
+    +'<div class="row" style="justify-content:flex-end;gap:10px;margin-top:16px"><button class="btn btn-ghost-danger" onclick="delItem('+it.no+')">削除</button><button class="btn btn-blue" onclick="editItem('+it.no+')">編集</button></div>';
+}
+function modalEditItem(it){
+  const sel=function(f,o){return o.map(x=>'<option '+(it[f]===x?'selected':'')+'>'+x+'</option>').join('');};
+  return '<div class="between" style="margin-bottom:12px"><div style="font-weight:700;font-size:17px">'+(it.isNew?'備品を追加':'備品を編集')+'</div><button class="ico-btn" onclick="closeModal()" aria-label="閉じる"><i class="ti ti-x"></i></button></div>'
+    +'<label class="label">備品名</label><input class="field" id="f-name" value="'+esc(it.name)+'">'
+    +'<label class="label">用途</label><input class="field" id="f-use" value="'+esc(it.use)+'">'
+    +'<label class="label">分類</label><select class="field" id="f-cat">'+BCATS.map(c=>'<option '+(it.cat===c?'selected':'')+'>'+c+'</option>').join('')+'</select>'
+    +'<div class="row" style="gap:10px"><div style="flex:1"><label class="label">所有台数</label><input class="field" id="f-total" type="number" value="'+(it.total!=null?it.total:0)+'"></div><div style="width:80px"><label class="label">単位</label><input class="field" id="f-unit" value="'+esc(it.unit||'個')+'"></div></div>'
+    +'<label class="label">保管場所 <span style="color:var(--danger)">*</span></label><input class="field" id="f-place" value="'+esc(it.place||'')+'" placeholder="例：本社2階倉庫">'
+    +'<label class="row tiny" style="margin-top:14px;cursor:pointer;color:var(--sub)"><input type="checkbox" id="f-wh" '+(it.warehouse?'checked':'')+'> 倉庫・本社で据え置き管理する</label>'
+    +'<label class="row tiny" style="margin-top:10px;cursor:pointer;color:var(--sub)"><input type="checkbox" id="f-cons" '+(it.consumable?'checked':'')+' onchange="document.getElementById(\'cons-fields\').style.display=this.checked?\'block\':\'none\'"> 消耗品として在庫管理する</label>'
+    +'<div id="cons-fields" style="display:'+(it.consumable?'block':'none')+'">'
+    +'<label class="row tiny" style="margin-top:10px;cursor:pointer;color:var(--sub)"><input type="checkbox" id="f-order" '+(it.orderManage?'checked':'')+'> 発注管理する（「消耗品発注」タブに表示）</label>'
+    +'<div class="row" style="gap:10px"><div style="flex:1"><label class="label">現在在庫</label><input class="field" id="f-stock" type="number" value="'+(it.stock!=null?it.stock:0)+'"></div><div style="flex:1"><label class="label">発注点</label><input class="field" id="f-op" type="number" value="'+(it.orderPoint!=null?it.orderPoint:0)+'"></div></div>'
+    +'<label class="label">発注単位</label><input class="field" id="f-ou" value="'+esc(it.orderUnit||'')+'" placeholder="例：1箱(160枚)単位で発注">'
+    +'<label class="label">発注基準（メモ）</label><input class="field" id="f-ob" value="'+esc(it.orderBase||'')+'">'
+    +'<div class="cat-h" style="margin-top:14px">発注情報</div>'
+    +'<label class="label">品番／JANコード</label><input class="field" id="f-jan" value="'+esc(it.janCode||'')+'">'
+    +'<div class="row" style="gap:10px"><div style="flex:1"><label class="label">サイズ</label><input class="field" id="f-size" value="'+esc(it.size||'')+'"></div><div style="flex:1"><label class="label">カラー</label><input class="field" id="f-color" value="'+esc(it.color||'')+'"></div></div>'
+    +'<div class="row" style="gap:10px"><div style="flex:1"><label class="label">発注ロット</label><input class="field" id="f-lotsize" value="'+esc(it.lotSize||'')+'" placeholder="例：1ロット160枚"></div><div style="flex:1"><label class="label">1ロット金額</label><input class="field" id="f-lotprice" value="'+esc(it.lotPrice||'')+'" placeholder="例：3,200円"></div></div>'
+    +'<label class="label">発注先</label><input class="field" id="f-supplier" value="'+esc(it.supplier||'')+'" placeholder="例：株式会社〇〇">'
+    +'</div>'
+    +'<button class="btn btn-blue btn-block" style="margin-top:18px" onclick="saveItem('+it.no+', '+(it.isNew?'true':'false')+')">保存</button>';
+}
+function gv(id){ const e=document.getElementById(id); return e?e.value:''; }
+function saveItem(no,isNew){
+  const cons=document.getElementById('f-cons').checked;
+  const wh=document.getElementById('f-wh').checked;
+  const orderManage=cons&&document.getElementById('f-order').checked;
+  const place=gv('f-place').trim();
+  if(!place){ toast('保管場所を入力してください'); return; }
+  const total=Number(gv('f-total'))||0;
+  const it={no:no,name:gv('f-name').trim()||'無題',use:gv('f-use'),cat:gv('f-cat'),total:total,a:Math.ceil(total/2),b:Math.floor(total/2),unit:gv('f-unit')||'個',jisha:'必須',mall:'必須',honsha:'必要時',place:place,pri:'中',consumable:cons,warehouse:wh,orderManage:orderManage};
+  const old=master().find(i=>i.no===no); if(old){it.note=old.note; it.venue=old.venue; it.damage=old.damage; it.report=old.report; it.order=old.order!=null?old.order:0;}
+  if(cons){
+    it.stock=Number(gv('f-stock'))||0;
+    it.orderPoint=Number(gv('f-op'))||0;
+    it.orderUnit=gv('f-ou');
+    it.orderBase=gv('f-ob');
+    // 発注情報
+    it.janCode=gv('f-jan');
+    it.size=gv('f-size');
+    it.color=gv('f-color');
+    it.lotSize=gv('f-lotsize');
+    it.lotPrice=gv('f-lotprice');
+    it.supplier=gv('f-supplier');
+    if(old){ it.minA=old.minA||0; it.minB=old.minB||0; }
+  }
+  let m=master().slice();
+  if(isNew){
+    // カテゴリ内の末尾に追加
+    const sameCat=m.filter(x=>x.cat===it.cat);
+    it.order=sameCat.length?Math.max(...sameCat.map(x=>x.order||0))+1:0;
+    m.push(it);
+  } else m=m.map(i=>i.no===no?it:i);
+  DB.master=m; saveMaster(); modal=null; render();
+}
+load();
+</script>
+</body>
+</html>
