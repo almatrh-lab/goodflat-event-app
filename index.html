@@ -206,6 +206,11 @@ function syncFromGas(silent){
           } else {
             qty[it.no]=it.request;
             if(it.actual!=null) actual[it.no]=it.actual;
+            // 追加品目(custom)はGAS依頼に名前が入っている。準備担当など他端末のlitemsに無ければ取り込む（#51：追加した品目が準備担当に反映されない不具合の是正）
+            if(it.kind==='custom' && it.name){
+              const cur=litems();
+              if(!cur.some(li=>Number(li.no)===Number(it.no))){ DB.litems=cur.concat([{no:Number(it.no),cat:'custom',name:it.name,unit:it.unit||'個'}]); saveLitems(); }
+            }
           }
         });
         // lockedはローカルから引き継ぐ（送信済みなら確定）
