@@ -206,8 +206,10 @@ function syncFromGas(silent){
           } else {
             qty[it.no]=it.request;
             if(it.actual!=null) actual[it.no]=it.actual;
-            // 追加品目(custom)はGAS依頼に名前が入っている。準備担当など他端末のlitemsに無ければ取り込む（#51：追加した品目が準備担当に反映されない不具合の是正）
-            if(it.kind==='custom' && it.name){
+            // 追加品目はGAS依頼に名前が入っている。準備担当など他端末のlitemsに無ければ取り込む。
+            //  #57：GASがkindを'custom'で返さない場合もあるため、「名前があり・equipでなく・手元のlitemsに無い品目」を
+            //       追加品目として取り込む（標準の積込品目は全端末で既にlitemsにあるので無害＝重複しない）。#51の是正を拡張。
+            if(it.name){
               const cur=litems();
               if(!cur.some(li=>Number(li.no)===Number(it.no))){ DB.litems=cur.concat([{no:Number(it.no),cat:'custom',name:it.name,unit:it.unit||'個'}]); saveLitems(); }
             }
