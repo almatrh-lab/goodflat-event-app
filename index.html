@@ -626,7 +626,12 @@ function doMarkDone(){ const r=curReq; r.done=true; r.doneAt=new Date().toLocale
 }
 function delReq(id){ modal={type:'confirm',needPass:true,msg:'この積み込み依頼を削除します。管理者パスワードを入力してください。',ok:function(){deleteReqFromGas(id); DB.reqs=DB.reqs.filter(r=>r.id!==id); LS.set('reqs',JSON.stringify(DB.reqs)); curReq=null; modal=null; render();}}; renderModal(); }
 function addCustomItem(){ modal={type:'customItem'}; renderModal(); }
-function saveCustomItem(){ const name=(document.getElementById('ci-name').value||'').trim(); if(!name){toast('品目名を入力してください');return;} const unit=(document.getElementById('ci-unit').value||'個').trim(); const no=Math.max(0,...litems().map(i=>i.no))+1; const m=litems().slice(); m.push({no:no,cat:'custom',name:name,unit:unit}); DB.litems=m; saveLitems(); if(!curReq.qty) curReq.qty={}; curReq.qty[no]=1; saveReqs(); modal=null; render(); }
+function saveCustomItem(){ const name=(document.getElementById('ci-name').value||'').trim(); if(!name){toast('品目名を入力してください');return;} const unit=(document.getElementById('ci-unit').value||'個').trim();
+  // #57：追加品目の番号(no)は端末をまたいで“一意”にする。以前は端末ごとの連番(最大+1)だったため、
+  //   別端末で作った別の追加品目と番号が衝突し、準備担当(相手側)の同期取り込み(no一致で判定)で弾かれて表示されない不具合があった。
+  //   標準の積込品目は小さい番号(1..N)なので、大きな一意番号(時刻ベース)にすれば衝突しない。
+  const no=900000000+Math.floor(Date.now()%100000000);
+  const m=litems().slice(); m.push({no:no,cat:'custom',name:name,unit:unit}); DB.litems=m; saveLitems(); if(!curReq.qty) curReq.qty={}; curReq.qty[no]=1; saveReqs(); modal=null; render(); }
 function shareReq(){
   const r=curReq; const ev=findEvent(r.eventId);
   let txt='【積み込み依頼】'+(ev?ev.name:'')+'\n'+((ev&&ev.team)?(ev.team+'チーム'):'')+(r.requester?' / 依頼：'+r.requester:'')+'\n'+((ev&&ev.dest)?'配送先住所：'+ev.dest+'\n':'')+(r.due?'積み込み準備期限：'+r.due+'\n':'')+((ev&&ev.carrier)?'運送：'+ev.carrier+'\n':'');
