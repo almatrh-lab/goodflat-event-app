@@ -215,8 +215,10 @@ function syncFromGas(silent){
             }
           }
         });
-        // lockedはローカルから引き継ぐ（送信済みなら確定）
-        const locked = local.locked || sr.done || (Object.keys(actual).length>0) || (Object.keys(equipActual).length>0);
+        // lockedは「サーバの確定状態(#77)」を最優先。加えてローカル確定・完了・実数入力済みでも確定扱い。
+        //  ＝依頼者が『依頼を確定』したら、その確定が積み込者(別端末)にも伝わり、開くと確認モードで出る。
+        const srLocked = sr.locked===true || String(sr.locked).toLowerCase()==='true' || sr.locked===1 || sr.locked==='1';
+        const locked = srLocked || local.locked || sr.done || (Object.keys(actual).length>0) || (Object.keys(equipActual).length>0);
         return Object.assign({}, local, sr, {qty:qty,actual:actual,equipQty:equipQty,equipActual:equipActual,locked:locked});
       });
       saveReqs();
@@ -247,7 +249,7 @@ function saveReqToGas(r){
     const mi=master().find(x=>x.no===Number(no));
     items.push({kind:'equip',no:Number(no),name:mi?mi.name:'',unit:mi?mi.unit:'',request:q,actual:(r.equipActual||{})[no]==null?'':r.equipActual[no]});
   });
-  const payload={action:'req_save',req:{id:r.id,eventId:r.eventId,requester:r.requester||'',checker:r.checker||'',due:r.due||'',workdate:r.workdate||'',done:!!r.done,doneAt:r.doneAt||'',sent:!!r.sent,sentAt:r.sentAt||''},items:items};
+  const payload={action:'req_save',req:{id:r.id,eventId:r.eventId,requester:r.requester||'',checker:r.checker||'',due:r.due||'',workdate:r.workdate||'',locked:!!r.locked,done:!!r.done,doneAt:r.doneAt||'',sent:!!r.sent,sentAt:r.sentAt||''},items:items};
   fetch(DB.cfg.gasUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
 }
 // 依頼をGASから削除
