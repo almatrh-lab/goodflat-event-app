@@ -218,7 +218,10 @@ function syncFromGas(silent){
         // lockedは「サーバの確定状態(#77)」を最優先。加えてローカル確定・完了・実数入力済みでも確定扱い。
         //  ＝依頼者が『依頼を確定』したら、その確定が積み込者(別端末)にも伝わり、開くと確認モードで出る。
         const srLocked = sr.locked===true || String(sr.locked).toLowerCase()==='true' || sr.locked===1 || sr.locked==='1';
-        const locked = srLocked || local.locked || sr.done || (Object.keys(actual).length>0) || (Object.keys(equipActual).length>0);
+        // #77再修正：GASが locked 列を返さない環境でも直るように、同期される「担当(checker)／作業日(workdate)」が
+        //  入っていれば“依頼者が積み込者へ確定して回した”とみなし確認モードにする（担当・作業日は req_save で往復する）。
+        const assigned = !!String(sr.checker || local.checker || '').trim() || !!String(sr.workdate || local.workdate || '').trim();
+        const locked = srLocked || assigned || local.locked || sr.done || (Object.keys(actual).length>0) || (Object.keys(equipActual).length>0);
         return Object.assign({}, local, sr, {qty:qty,actual:actual,equipQty:equipQty,equipActual:equipActual,locked:locked});
       });
       saveReqs();
@@ -486,7 +489,10 @@ function qtyRow(r,it){
     +'<button class="qtybtn" onclick="bump('+it.no+',1)">＋</button><span class="unit">'+esc(it.unit)+'</span></div></div>';
 }
 function bump(no,d){ const r=curReq; if(!r.qty) r.qty={}; r.qty[no]=Math.max(0,(Number(r.qty[no])||0)+d); saveReqs(); render(); }
-function setQty(no,v){ const r=curReq; if(!r.qty) r.qty={}; r.qty[no]=Math.max(0,Number(v)||0); saveReqs(); render(); }
+// #77②：数字入力の onchange で render() すると、入力欄からフォーカスを外した瞬間に画面全体が作り直され、
+//  PCで次の品目を続けて入力できなくなっていた。値はモデル＋保存に反映済みで入力欄にも残るので、ここでは再描画しない
+//  （見た目のOK/不一致や進捗は、チェックのタップ・±ボタン・画面移動など次の操作で更新される）。
+function setQty(no,v){ const r=curReq; if(!r.qty) r.qty={}; r.qty[no]=Math.max(0,Number(v)||0); saveReqs(); }
 function equipRow(r,it){
   const q=(r.equipQty||{})[it.no]||0;
   const total=Number(it.total||0);
@@ -497,7 +503,7 @@ function equipRow(r,it){
     +'<button class="ico-btn" onclick="removeEquip('+it.no+')" aria-label="削除"><i class="ti ti-x"></i></button></div></div>';
 }
 function bumpEquip(no,d){ const r=curReq; if(!r.equipQty) r.equipQty={}; r.equipQty[no]=Math.max(0,(Number(r.equipQty[no])||0)+d); saveReqs(); render(); }
-function setEquipQty(no,v){ const r=curReq; if(!r.equipQty) r.equipQty={}; r.equipQty[no]=Math.max(0,Number(v)||0); saveReqs(); render(); }
+function setEquipQty(no,v){ const r=curReq; if(!r.equipQty) r.equipQty={}; r.equipQty[no]=Math.max(0,Number(v)||0); saveReqs(); } // #77② 入力中の再描画を止める
 function removeEquip(no){ const r=curReq; if(r.equipQty) delete r.equipQty[no]; if(r.equipActual) delete r.equipActual[no]; saveReqs(); render(); }
 function equipCheckRow(r,it){
   const req=(r.equipQty||{})[it.no]||0; const act=(r.equipActual||{})[it.no];
@@ -513,7 +519,7 @@ function equipCheckRow(r,it){
     +'</div></div>';
 }
 function toggleEquipCheck(no,req){ const r=curReq; if(!r.equipActual) r.equipActual={}; if(r.equipActual[no]!=null&&Number(r.equipActual[no])===Number(req)) delete r.equipActual[no]; else r.equipActual[no]=req; saveReqs(); render(); }
-function setEquipActual(no,v){ const r=curReq; if(!r.equipActual) r.equipActual={}; if(v==='') delete r.equipActual[no]; else r.equipActual[no]=Math.max(0,Number(v)||0); saveReqs(); render(); }
+function setEquipActual(no,v){ const r=curReq; if(!r.equipActual) r.equipActual={}; if(v==='') delete r.equipActual[no]; else r.equipActual[no]=Math.max(0,Number(v)||0); saveReqs(); } // #77② 入力中の再描画を止める
 function openEquipPicker(){
   const equip=master().filter(it=>!it.consumable);
   modal={type:'equipPicker',selected:Object.assign({},(curReq.equipQty||{}))};
@@ -601,7 +607,7 @@ function checkRow(r,it){
     +'</div></div>';
 }
 function toggleCheck(no,req){ const r=curReq; if(!r.actual) r.actual={}; if(r.actual[no]!=null&&Number(r.actual[no])===Number(req)) delete r.actual[no]; else r.actual[no]=req; saveReqs(); render(); }
-function setActual(no,v){ const r=curReq; if(!r.actual) r.actual={}; if(v==='') delete r.actual[no]; else r.actual[no]=Math.max(0,Number(v)||0); saveReqs(); render(); }
+function setActual(no,v){ const r=curReq; if(!r.actual) r.actual={}; if(v==='') delete r.actual[no]; else r.actual[no]=Math.max(0,Number(v)||0); saveReqs(); } // #77② 入力中の再描画を止める（PCで実数が打てない不具合）
 function lockReq(){ modal={type:'confirm',msg:'依頼を確定して積み込者の確認モードに切り替えますか？',ok:function(){curReq.locked=true; saveReqs(); modal={type:'checkStart',checker:curReq.checker||'',workdate:curReq.workdate||''}; renderModal();}}; renderModal(); }
 function markDone(){ const r=curReq; const st=reqStats(r);
   // 台数衝突を最終チェック
