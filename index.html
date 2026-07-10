@@ -222,8 +222,12 @@ function syncFromGas(silent){
         //  入っていれば“依頼者が積み込者へ確定して回した”とみなし確認モードにする（担当・作業日は req_save で往復する）。
         const assigned = !!String(sr.checker || local.checker || '').trim() || !!String(sr.workdate || local.workdate || '').trim();
         const locked = srLocked || assigned || local.locked || sr.done || (Object.keys(actual).length>0) || (Object.keys(equipActual).length>0);
-        return Object.assign({}, local, sr, {qty:qty,actual:actual,equipQty:equipQty,equipActual:equipActual,locked:locked});
+        // #77②：入力した実数(actual/equipActual)がサーバー往復前に同期で消える不具合の対策＝
+        //  ローカルの実数を優先で残す（実数は積み込者本人が自端末で入れる値のため、上書きで消さない）。
+        return Object.assign({}, local, sr, {qty:qty,actual:Object.assign({},actual,local.actual||{}),equipQty:equipQty,equipActual:Object.assign({},equipActual,local.equipActual||{}),locked:locked});
       });
+      // #77①：DB.reqs を作り直したので、開いている依頼(curReq)を新しい実体に貼り直す（古い参照のままだと確定が反映されない）。
+      if(curReq){ const nc=DB.reqs.find(x=>x.id===curReq.id); if(nc) curReq=nc; }
       saveReqs();
       syncing=false;
       lastSyncAt = new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
@@ -407,7 +411,7 @@ function reqStats(r){
   Object.keys(equipQty).forEach(no=>{ if(equipQty[no]<=0) return; if(equipActual[no]!=null){ checked++; if(Number(equipActual[no])!==Number(equipQty[no])) ng++; } });
   return {kinds:kinds,checked:checked,ng:ng};
 }
-function openReq(id){ curReq=DB.reqs.find(r=>r.id===id); view='load'; render(); }
+function openReq(id){ curReq=DB.reqs.find(r=>r.id===id); view='load'; render(); if(DB.cfg.gasUrl) syncFromGas(true); } // #77①：開いた時に最新の確定状態を取り直す
 function reqDetailHTML(){
   const r=curReq;
   const ev=findEvent(r.eventId);
